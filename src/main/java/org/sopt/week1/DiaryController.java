@@ -24,6 +24,15 @@ public class DiaryController {
 		}
 	}
 
+	private void validateBodyLength(final String body) {
+		if (
+			body.isBlank() ||
+			body.trim().length() > 30
+		) {
+			throw new IllegalArgumentException();
+		}
+	}
+
 	// APIS
 	final String getList() {
 		return "get!";
