@@ -6,9 +6,16 @@ import org.sopt.week1.DiaryRepository;
 
 public class DiaryService {
 	private final DiaryRepository diaryRepository = new DiaryRepository();
+	private final DiaryRecoveryRepository diaryRecoveryRepository = new DiaryRecoveryRepository();
 
 	private void checkExist(final Long id) {
 		if (diaryRepository.findById(id) == null) {
+			throw new NullPointerException();
+		}
+	}
+
+	private void checkExistRecovery(final Long id) {
+		if (diaryRecoveryRepository.findById(id) == null) {
 			throw new NullPointerException();
 		}
 	}
@@ -22,9 +29,10 @@ public class DiaryService {
 	void deleteDiary(final Long id) {
 		checkExist(id);
 
-		Diary diary = new Diary(id, null);
+		Diary diary = diaryRepository.findById(id);
 
 		diaryRepository.delete(diary);
+		diaryRecoveryRepository.save(diary);
 	}
 
 	List<Diary> getDiaryList() {
@@ -36,6 +44,15 @@ public class DiaryService {
 
 		Diary diary = new Diary(id, body.trim());
 
+		diaryRepository.save(diary);
+	}
+
+	void recoveryDiary(final Long id) {
+		checkExistRecovery(id);
+
+		Diary diary = diaryRecoveryRepository.findById(id);
+
+		diaryRecoveryRepository.delete(diary);
 		diaryRepository.save(diary);
 	}
 }

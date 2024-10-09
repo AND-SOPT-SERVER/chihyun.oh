@@ -59,6 +59,12 @@ public class DiaryController {
 		diaryService.rewriteDiary(Long.parseLong(id), body.trim());
 	}
 
+	final void recoveryPatch(final String id) {
+		validateIdType(id);
+
+		diaryService.recoveryDiary(Long.parseLong(id));
+	}
+
 	enum Status {
 		READY,
 		RUNNING,
