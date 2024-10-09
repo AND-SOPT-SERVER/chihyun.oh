@@ -16,6 +16,14 @@ public class DiaryController {
 		this.status = Status.FINISHED;
 	}
 
+	private void validateIdType(final String id) {
+		try {
+			Long parseTest = Long.parseLong(id.trim());
+		} catch (NumberFormatException e) {
+			throw new IllegalArgumentException();
+		}
+	}
+
 	// APIS
 	final String getList() {
 		return "get!";
