@@ -3,9 +3,8 @@ package org.sopt.week1;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicLong;
 
-public class DiaryRecoveryRepository {
+public class DiaryRestoreRepository {
 	private final Map<Long, String> storage = new ConcurrentHashMap<>();
 
 	void save(final Diary diary) {
