@@ -1,6 +1,5 @@
 package org.sopt.week1;
 
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
@@ -9,33 +8,13 @@ public class DiaryRepository {
 	private final Map<Long, String> storage = new ConcurrentHashMap<>();
 	private final AtomicLong numbering = new AtomicLong();
 
-	void save(final Diary diary) {
+	public void save(final Diary diary) {
 		if (diary.getId() != null) {
 			storage.put(diary.getId(), diary.getBody());
 			return;
 		}
 
-		final Long id = numbering.addAndGet(1);
+		final Long id = numbering.getAndAdd(1);
 		storage.put(id, diary.getBody());
-	}
-
-	void delete(final Diary diary) {
-		storage.remove(diary.getId());
-	}
-
-	Diary findById(final Long id) {
-		final String body = storage.get(id);
-
-		if (body == null) {
-			return null;
-		}
-
-		return new Diary(id, body);
-	}
-
-	List<Diary> findAll() {
-		return storage.entrySet().stream()
-			.map(entry -> new Diary(entry.getKey(), entry.getValue()))
-			.toList();
 	}
 }

@@ -93,10 +93,54 @@
       <option name="presentableId" value="Default" />
       <updated>1727704054790</updated>
       <workItem from="1727704056057" duration="99000" />
+      <workItem from="1728479009507" duration="91000" />
+      <workItem from="1728479106850" duration="846000" />
     </task>
+    <task id="LOCAL-00001" summary="feat: 세미나1 기본 구조 추가">
+      <option name="closed" value="true" />
+      <created>1728479571412</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1728479571412</updated>
+    </task>
+    <task id="LOCAL-00002" summary="feat: Id 값 검사 로직 추가">
+      <option name="closed" value="true" />
+      <created>1728479782108</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1728479782108</updated>
+    </task>
+    <task id="LOCAL-00003" summary="feat: Body 길이 검사 로직 추가">
+      <option name="closed" value="true" />
+      <created>1728479875931</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1728479875931</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="feat: 세미나1 기본 구조 추가" />
+    <MESSAGE value="feat: Id 값 검사 로직 추가" />
+    <MESSAGE value="feat: Body 길이 검사 로직 추가" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: Body 길이 검사 로직 추가" />
   </component>
 </project>

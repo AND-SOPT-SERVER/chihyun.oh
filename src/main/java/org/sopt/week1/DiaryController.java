@@ -30,7 +30,9 @@ public class DiaryController {
 	}
 
 	final void post(final String body) {
+		validateBodyLength(body);
 
+		diaryService.writeDiary(body);
 	}
 
 	final void delete(final String id) {
