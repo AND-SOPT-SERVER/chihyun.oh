@@ -108,4 +108,12 @@ public class DiaryService {
 			}
 		);
 	}
+
+	void recoveryDeleteDiary(final Long id) {
+		checkExistRecovery(id);
+
+		Diary diary = diaryRecoveryRepository.findById(id);
+
+		diaryRecoveryRepository.delete(diary);
+	}
 }
