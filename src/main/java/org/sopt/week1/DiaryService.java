@@ -22,4 +22,10 @@ public class DiaryService {
 	List<Diary> getDiaryList() {
 		return diaryRepository.findAll();
 	}
+
+	void rewriteDiary(final Long id, final String body) {
+		Diary diary = new Diary(id, body.trim());
+
+		diaryRepository.save(diary);
+	}
 }

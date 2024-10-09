@@ -53,7 +53,10 @@ public class DiaryController {
 	}
 
 	final void patch(final String id, final String body) {
+		validateIdType(id);
+		validateBodyLength(body);
 
+		diaryService.rewriteDiary(Long.parseLong(id), body.trim());
 	}
 
 	enum Status {
