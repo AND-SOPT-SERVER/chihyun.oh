@@ -13,6 +13,12 @@ public class DiaryService {
 		diaryRepository.save(diary);
 	}
 
+	void deleteDiary(final Long id) {
+		Diary diary = new Diary(id, null);
+
+		diaryRepository.delete(diary);
+	}
+
 	List<Diary> getDiaryList() {
 		return diaryRepository.findAll();
 	}
