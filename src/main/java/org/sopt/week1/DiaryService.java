@@ -59,4 +59,12 @@ public class DiaryService {
 		diaryRecoveryRepository.delete(diary);
 		diaryRepository.save(diary);
 	}
+
+	void recoveryDeleteDiary(final Long id) {
+		checkExistRecovery(id);
+
+		Diary diary = diaryRecoveryRepository.findById(id);
+
+		diaryRecoveryRepository.delete(diary);
+	}
 }
