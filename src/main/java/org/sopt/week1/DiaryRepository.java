@@ -19,6 +19,10 @@ public class DiaryRepository {
 		storage.put(id, diary.getBody());
 	}
 
+	void delete(final Diary diary) {
+		storage.remove(diary.getId());
+	}
+
 	List<Diary> findAll() {
 		return storage.entrySet().stream()
 			.map(entry -> new Diary(entry.getKey(), entry.getValue()))
