@@ -1,8 +1,5 @@
 package org.sopt.week1;
 
-import static org.sopt.week1.DiaryConstant.*;
-import static org.sopt.week1.Main.UI.*;
-
 import java.util.List;
 
 public class DiaryController {
@@ -25,26 +22,16 @@ public class DiaryController {
 		try {
 			Long parseTest = Long.parseLong(id.trim());
 		} catch (NumberFormatException e) {
-			throw new InvalidInputException();
+			throw new IllegalArgumentException();
 		}
 	}
 
 	private void validateBodyLength(final String body) {
-		if (body.isBlank()) {
-			throw new InvalidInputException();
-		}
-
-		int length = 0;
-		for (int i = 0; i < body.length(); ++i) {
-			if (Character.isSurrogate(body.charAt(i))) {
-				++i;
-			}
-
-			++length;
-
-			if (length > BODY_LENGTH_UPPER_LIMIT.getValue()) {
-				throw new InvalidInputException();
-			}
+		if (
+			body.isBlank() ||
+			body.trim().length() > 30
+		) {
+			throw new IllegalArgumentException();
 		}
 	}
 
@@ -72,20 +59,10 @@ public class DiaryController {
 		diaryService.rewriteDiary(Long.parseLong(id), body.trim());
 	}
 
-	final List<Diary> restoreGetList() {
-		return diaryService.getRestoreDiaryList();
-	}
-
-	final void restoreDelete(final String id) {
+	final void recoveryPatch(final String id) {
 		validateIdType(id);
 
-		diaryService.restoreDeleteDiary(Long.parseLong(id));
-	}
-
-	final void restorePatch(final String id) {
-		validateIdType(id);
-
-		diaryService.restoreDiary(Long.parseLong(id));
+		diaryService.recoveryDiary(Long.parseLong(id));
 	}
 
 	enum Status {

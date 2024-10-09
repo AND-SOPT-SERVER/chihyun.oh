@@ -1,5 +1,7 @@
 package org.sopt.week1;
 
+import org.sopt.week1.DiaryController;
+
 import java.io.*;
 
 public class Main {
@@ -34,6 +36,7 @@ public class Main {
 		}
 
 		public void runRepeatedly() throws IOException {
+
 			do {
 				if (onMenu()) {
 					ConsoleIO.printLine("");
@@ -91,31 +94,20 @@ public class Main {
 
 							server.patch(inputId, inputBody);
 						}
-						case "RESTORE" -> {
+						case "RECOVERY" -> {
 							ConsoleIO.printLine("어떤 작업을 할건지 선택해주세요!");
 							final String selected = ConsoleIO.readLine();
 
 							switch (selected) {
 								case "GET" -> {
-									server.restoreGetList().forEach(diary -> {
-										try {
-											ConsoleIO.printLine(diary.getId() + " : " + diary.getBody());
-										} catch (IOException e) {
-											throw new RuntimeException(e);
-										}
-									});
 								}
 								case "DELETE" -> {
-									ConsoleIO.printLine("영구 삭제할 id 를 입력하세요!");
-									final String inputId = ConsoleIO.readLine();
-
-									server.restoreDelete(inputId);
 								}
 								case "PATCH" -> {
 									ConsoleIO.printLine("복구할 id 를 입력하세요!");
 									final String inputId = ConsoleIO.readLine();
 
-									server.restorePatch(inputId);
+									server.recoveryPatch(inputId);
 								}
 							}
 						}
@@ -150,7 +142,7 @@ public class Main {
                     - POST : 일기 작성하기
                     - DELETE : 일기 제거하기
                     - PATCH : 일기 수정하기
-                    - RESTORE
+                    - RECOVERY
                     	- GET : 삭제된 일기 불러오기
                     	- PATCH : 삭제된 일기 복구하기
                     	- DELETE : 삭제된 일기 영구 삭제하기
