@@ -23,6 +23,16 @@ public class DiaryRepository {
 		storage.remove(diary.getId());
 	}
 
+	Diary findById(final Long id) {
+		final String body = storage.get(id);
+
+		if (body == null) {
+			return null;
+		}
+
+		return new Diary(id, body);
+	}
+
 	List<Diary> findAll() {
 		return storage.entrySet().stream()
 			.map(entry -> new Diary(entry.getKey(), entry.getValue()))
