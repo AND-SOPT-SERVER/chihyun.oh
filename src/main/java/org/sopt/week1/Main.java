@@ -66,7 +66,13 @@ public class Main {
 				case RUNNING -> {
 					switch (selected) {
 						case "GET" -> {
-							ConsoleIO.printLine(server.getList());
+							server.getList().forEach(diary -> {
+								try {
+									ConsoleIO.printLine(diary.getId() + " : " + diary.getBody());
+								} catch (IOException e) {
+									throw new RuntimeException(e);
+								}
+							});
 						}
 						case "POST" -> {
 							ConsoleIO.printLine("한 줄 일기를 작성해주세요!");
