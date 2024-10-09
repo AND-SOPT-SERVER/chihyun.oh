@@ -1,7 +1,5 @@
 package org.sopt.week1;
 
-import java.util.List;
-
 public class DiaryController {
 	private Status status = Status.READY;
 	private final DiaryService diaryService = new DiaryService();
@@ -26,37 +24,21 @@ public class DiaryController {
 		}
 	}
 
-	private void validateBodyLength(final String body) {
-		if (
-			body.isBlank() ||
-			body.trim().length() > 30
-		) {
-			throw new IllegalArgumentException();
-		}
-	}
-
 	// APIS
-	final List<Diary> getList() {
-		return diaryService.getDiaryList();
+	final String getList() {
+		return "get!";
 	}
 
 	final void post(final String body) {
-		validateBodyLength(body);
 
-		diaryService.writeDiary(body);
 	}
 
 	final void delete(final String id) {
-		validateIdType(id);
 
-		diaryService.deleteDiary(Long.parseLong(id));
 	}
 
 	final void patch(final String id, final String body) {
-		validateIdType(id);
-		validateBodyLength(body);
 
-		diaryService.rewriteDiary(Long.parseLong(id), body.trim());
 	}
 
 	enum Status {
