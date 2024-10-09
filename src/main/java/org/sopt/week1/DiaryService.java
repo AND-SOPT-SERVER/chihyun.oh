@@ -2,11 +2,9 @@ package org.sopt.week1;
 
 import java.util.List;
 
-import org.sopt.week1.DiaryRepository;
-
 public class DiaryService {
 	private final DiaryRepository diaryRepository = new DiaryRepository();
-	private final DiaryRecoveryRepository diaryRecoveryRepository = new DiaryRecoveryRepository();
+	private final DiaryRestoreRepository diaryRestoreRepository = new DiaryRestoreRepository();
 
 	private void checkExist(final Long id) {
 		if (diaryRepository.findById(id) == null) {
@@ -15,7 +13,7 @@ public class DiaryService {
 	}
 
 	private void checkExistRecovery(final Long id) {
-		if (diaryRecoveryRepository.findById(id) == null) {
+		if (diaryRestoreRepository.findById(id) == null) {
 			throw new NullPointerException();
 		}
 	}
@@ -32,7 +30,7 @@ public class DiaryService {
 		Diary diary = diaryRepository.findById(id);
 
 		diaryRepository.delete(diary);
-		diaryRecoveryRepository.save(diary);
+		diaryRestoreRepository.save(diary);
 	}
 
 	List<Diary> getDiaryList() {
@@ -47,24 +45,24 @@ public class DiaryService {
 		diaryRepository.save(diary);
 	}
 
-	List<Diary> getRecoveryDiaryList() {
-		return diaryRecoveryRepository.findAll();
+	List<Diary> getRestoreDiaryList() {
+		return diaryRestoreRepository.findAll();
 	}
 
-	void recoveryDiary(final Long id) {
+	void restoreDiary(final Long id) {
 		checkExistRecovery(id);
 
-		Diary diary = diaryRecoveryRepository.findById(id);
+		Diary diary = diaryRestoreRepository.findById(id);
 
-		diaryRecoveryRepository.delete(diary);
+		diaryRestoreRepository.delete(diary);
 		diaryRepository.save(diary);
 	}
 
-	void recoveryDeleteDiary(final Long id) {
+	void restoreDeleteDiary(final Long id) {
 		checkExistRecovery(id);
 
-		Diary diary = diaryRecoveryRepository.findById(id);
+		Diary diary = diaryRestoreRepository.findById(id);
 
-		diaryRecoveryRepository.delete(diary);
+		diaryRestoreRepository.delete(diary);
 	}
 }
