@@ -109,6 +109,10 @@ public class Main {
 									});
 								}
 								case "DELETE" -> {
+									ConsoleIO.printLine("영구 삭제할 id 를 입력하세요!");
+									final String inputId = ConsoleIO.readLine();
+
+									server.recoveryDelete(inputId);
 								}
 								case "PATCH" -> {
 									ConsoleIO.printLine("복구할 id 를 입력하세요!");
