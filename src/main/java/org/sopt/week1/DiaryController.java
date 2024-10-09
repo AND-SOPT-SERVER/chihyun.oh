@@ -59,20 +59,20 @@ public class DiaryController {
 		diaryService.rewriteDiary(Long.parseLong(id), body.trim());
 	}
 
-	final List<Diary> recoveryGetList() {
-		return diaryService.getRecoveryDiaryList();
+	final List<Diary> restoreGetList() {
+		return diaryService.getRestoreDiaryList();
 	}
 
-	final void recoveryDelete(final String id) {
+	final void restoreDelete(final String id) {
 		validateIdType(id);
 
-		diaryService.recoveryDeleteDiary(Long.parseLong(id));
+		diaryService.restoreDeleteDiary(Long.parseLong(id));
 	}
 
-	final void recoveryPatch(final String id) {
+	final void restorePatch(final String id) {
 		validateIdType(id);
 
-		diaryService.recoveryDiary(Long.parseLong(id));
+		diaryService.restoreDiary(Long.parseLong(id));
 	}
 
 	enum Status {
