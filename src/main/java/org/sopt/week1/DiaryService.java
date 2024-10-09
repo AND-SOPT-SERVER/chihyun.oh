@@ -47,6 +47,10 @@ public class DiaryService {
 		diaryRepository.save(diary);
 	}
 
+	List<Diary> getRecoveryDiaryList() {
+		return diaryRecoveryRepository.findAll();
+	}
+
 	void recoveryDiary(final Long id) {
 		checkExistRecovery(id);
 

@@ -59,6 +59,10 @@ public class DiaryController {
 		diaryService.rewriteDiary(Long.parseLong(id), body.trim());
 	}
 
+	final List<Diary> recoveryGetList() {
+		return diaryService.getRecoveryDiaryList();
+	}
+
 	final void recoveryPatch(final String id) {
 		validateIdType(id);
 
