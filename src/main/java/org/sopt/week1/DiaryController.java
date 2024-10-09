@@ -43,6 +43,12 @@ public class DiaryController {
 
 	}
 
+	final void recoveryPatch(final String id) {
+		validateIdType(id);
+
+		diaryService.recoveryDiary(Long.parseLong(id));
+	}
+
 	enum Status {
 		READY,
 		RUNNING,
