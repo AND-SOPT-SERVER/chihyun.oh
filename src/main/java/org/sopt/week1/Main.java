@@ -100,6 +100,13 @@ public class Main {
 
 							switch (selected) {
 								case "GET" -> {
+									server.recoveryGetList().forEach(diary -> {
+										try {
+											ConsoleIO.printLine(diary.getId() + " : " + diary.getBody());
+										} catch (IOException e) {
+											throw new RuntimeException(e);
+										}
+									});
 								}
 								case "DELETE" -> {
 								}
