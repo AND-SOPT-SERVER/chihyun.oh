@@ -63,6 +63,12 @@ public class DiaryController {
 		return diaryService.getRecoveryDiaryList();
 	}
 
+	final void recoveryDelete(final String id) {
+		validateIdType(id);
+
+		diaryService.recoveryDeleteDiary(Long.parseLong(id));
+	}
+
 	final void recoveryPatch(final String id) {
 		validateIdType(id);
 
