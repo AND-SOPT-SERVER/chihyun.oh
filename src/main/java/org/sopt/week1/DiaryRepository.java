@@ -15,7 +15,7 @@ public class DiaryRepository {
 			return;
 		}
 
-		final Long id = numbering.getAndAdd(1);
+		final Long id = numbering.addAndGet(1);
 		storage.put(id, diary.getBody());
 	}
 
