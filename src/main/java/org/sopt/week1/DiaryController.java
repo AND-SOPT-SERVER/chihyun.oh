@@ -1,5 +1,7 @@
 package org.sopt.week1;
 
+import java.util.List;
+
 public class DiaryController {
 	private Status status = Status.READY;
 	private final DiaryService diaryService = new DiaryService();
@@ -34,8 +36,8 @@ public class DiaryController {
 	}
 
 	// APIS
-	final String getList() {
-		return "get!";
+	final List<Diary> getList() {
+		return diaryService.getDiaryList();
 	}
 
 	final void post(final String body) {
