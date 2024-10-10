@@ -27,11 +27,21 @@ public class DiaryController {
 	}
 
 	private void validateBodyLength(final String body) {
-		if (
-			body.isBlank() ||
-			body.trim().length() > 30
-		) {
+		if (body.isBlank()) {
 			throw new IllegalArgumentException();
+		}
+
+		int length = 0;
+		for (int i = 0; i < body.length(); ++i) {
+			if (Character.isSurrogate(body.charAt(i))) {
+				++i;
+			}
+
+			++length;
+
+			if (length > 30) {
+				throw new IllegalArgumentException();
+			}
 		}
 	}
 
