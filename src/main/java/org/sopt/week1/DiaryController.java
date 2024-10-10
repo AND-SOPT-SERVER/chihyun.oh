@@ -1,5 +1,7 @@
 package org.sopt.week1;
 
+import java.util.List;
+
 public class DiaryController {
 	private Status status = Status.READY;
 	private final DiaryService diaryService = new DiaryService();
@@ -24,9 +26,28 @@ public class DiaryController {
 		}
 	}
 
+	private void validateBodyLength(final String body) {
+		if (body.isBlank()) {
+			throw new IllegalArgumentException();
+		}
+
+		int length = 0;
+		for (int i = 0; i < body.length(); ++i) {
+			if (Character.isSurrogate(body.charAt(i))) {
+				++i;
+			}
+
+			++length;
+
+			if (length > 30) {
+				throw new IllegalArgumentException();
+			}
+		}
+	}
+
 	// APIS
-	final String getList() {
-		return "get!";
+	final List<Diary> getList() {
+		return diaryService.getDiaryList();
 	}
 
 	final void post(final String body) {
@@ -36,11 +57,16 @@ public class DiaryController {
 	}
 
 	final void delete(final String id) {
+		validateIdType(id);
 
+		diaryService.deleteDiary(Long.parseLong(id));
 	}
 
 	final void patch(final String id, final String body) {
+		validateIdType(id);
+		validateBodyLength(body);
 
+		diaryService.rewriteDiary(Long.parseLong(id), body.trim());
 	}
 
 	final List<Diary> restoreGetList() {

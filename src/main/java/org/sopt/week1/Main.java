@@ -34,7 +34,6 @@ public class Main {
 		}
 
 		public void runRepeatedly() throws IOException {
-
 			do {
 				if (onMenu()) {
 					ConsoleIO.printLine("");
