@@ -6,10 +6,15 @@ import java.util.List;
 
 public class DiaryService {
 	private final DiaryRepository diaryRepository = new DiaryRepository();
-	private final DiaryRestoreRepository diaryRestoreRepository = new DiaryRestoreRepository();
 
-	private void checkExistRecovery(final Long id) {
-		if (diaryRestoreRepository.findById(id) == null) {
+	private void checkDeleted(Diary diary) {
+		if (!diary.getIsDeleted()) {
+			throw new InvalidInputException();
+		}
+	}
+
+	private void checkNotDeleted(Diary diary) {
+		if (diary.getIsDeleted()) {
 			throw new InvalidInputException();
 		}
 	}
@@ -23,8 +28,8 @@ public class DiaryService {
 	void deleteDiary(final Long id) {
 		diaryRepository.findById(id)
 			.ifPresentOrElse(diary -> {
-				diaryRepository.delete(diary);
-				diaryRestoreRepository.save(diary);
+				checkNotDeleted(diary);
+				diaryRepository.save(new Diary(id, diary.getBody(), true));
 			},
 			() -> {
 				throw new InvalidInputException();
@@ -38,7 +43,10 @@ public class DiaryService {
 
 	void rewriteDiary(final Long id, final String body) {
 		diaryRepository.findById(id)
-			.ifPresentOrElse(diary -> diaryRepository.save(new Diary(id, body, false)),
+			.ifPresentOrElse(diary -> {
+				checkNotDeleted(diary);
+				diaryRepository.save(new Diary(id, body, false));
+			},
 			() -> {
 				throw new InvalidInputException();
 			}
@@ -46,23 +54,32 @@ public class DiaryService {
 	}
 
 	List<Diary> getRestoreDiaryList() {
-		return diaryRestoreRepository.findAll();
+		return diaryRepository.findAll().stream()
+			.filter(Diary::getIsDeleted)
+			.toList();
 	}
 
 	void restoreDiary(final Long id) {
-		checkExistRecovery(id);
-
-		Diary diary = diaryRestoreRepository.findById(id);
-
-		diaryRestoreRepository.delete(diary);
-		diaryRepository.save(diary);
+		diaryRepository.findById(id)
+			.ifPresentOrElse(diary -> {
+				checkDeleted(diary);
+				diaryRepository.save(new Diary(id, diary.getBody(), false));
+			},
+			() -> {
+				throw new InvalidInputException();
+			}
+		);
 	}
 
 	void restoreDeleteDiary(final Long id) {
-		checkExistRecovery(id);
-
-		Diary diary = diaryRestoreRepository.findById(id);
-
-		diaryRestoreRepository.delete(diary);
+		diaryRepository.findById(id)
+			.ifPresentOrElse(diary -> {
+				checkDeleted(diary);
+				diaryRepository.delete(diary);
+			},
+			() -> {
+				throw new InvalidInputException();
+			}
+		);
 	}
 }
