@@ -2,10 +2,13 @@ package org.sopt.week1;
 
 import static org.sopt.week1.Main.UI.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class DiaryService {
 	private final DiaryRepository diaryRepository = new DiaryRepository();
+	private int patchCount = 0;
+	private LocalDate lastPatchDate = LocalDate.now();
 
 	private void checkDeleted(Diary diary) {
 		if (!diary.getIsDeleted()) {
@@ -15,6 +18,24 @@ public class DiaryService {
 
 	private void checkNotDeleted(Diary diary) {
 		if (diary.getIsDeleted()) {
+			throw new InvalidInputException();
+		}
+	}
+
+	private void resetPatchCount() {
+		lastPatchDate = LocalDate.now();
+	}
+
+	private void increasePatchCount() {
+		++patchCount;
+	}
+
+	private void checkPatchCount() {
+		if (lastPatchDate.isBefore(LocalDate.now())) {
+			resetPatchCount();
+		}
+
+		if (patchCount == 2) {
 			throw new InvalidInputException();
 		}
 	}
@@ -42,10 +63,13 @@ public class DiaryService {
 	}
 
 	void rewriteDiary(final Long id, final String body) {
+		checkPatchCount();
+
 		diaryRepository.findById(id)
 			.ifPresentOrElse(diary -> {
 				checkNotDeleted(diary);
 				diaryRepository.save(new Diary(id, body, false));
+				increasePatchCount();
 			},
 			() -> {
 				throw new InvalidInputException();
