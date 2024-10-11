@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f3f693ab-0c33-4b95-a4bf-c21587c40f82" name="변경" comment="feat: 이모지 글자 1개로 인식하게 변경">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="f3f693ab-0c33-4b95-a4bf-c21587c40f82" name="변경" comment="refactor: Soft Delete로 변경하기 위해 삭제 플래그 컬럼 추가">
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/sopt/week1/Diary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/sopt/week1/Diary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/sopt/week1/DiaryRestoreRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/sopt/week1/DiaryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/sopt/week1/DiaryService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -144,6 +146,7 @@
       <workItem from="1728479106850" duration="9814000" />
       <workItem from="1728564941572" duration="2400000" />
       <workItem from="1728617168377" duration="3787000" />
+      <workItem from="1728629393593" duration="3386000" />
     </task>
     <task id="LOCAL-00001" summary="feat: 세미나1 기본 구조 추가">
       <option name="closed" value="true" />
@@ -273,7 +276,39 @@
       <option name="project" value="LOCAL" />
       <updated>1728565457216</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="refactor: 데이터베이스 값을 Diary 객체로 변경">
+      <option name="closed" value="true" />
+      <created>1728630323724</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1728630323724</updated>
+    </task>
+    <task id="LOCAL-00018" summary="refactor: 데이터베이스 계층에서 단일 조회 시 Optional을 사용해 NPE를 해결">
+      <option name="closed" value="true" />
+      <created>1728631514441</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1728631514441</updated>
+    </task>
+    <task id="LOCAL-00019" summary="refactor: Main에서 처리할 수 있는 InvalidInputException으로 변경">
+      <option name="closed" value="true" />
+      <created>1728631578618</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1728631578618</updated>
+    </task>
+    <task id="LOCAL-00020" summary="refactor: Soft Delete로 변경하기 위해 삭제 플래그 컬럼 추가">
+      <option name="closed" value="true" />
+      <created>1728631776142</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1728631776142</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -307,6 +342,10 @@
     <MESSAGE value="feat: 삭제된 일기 영구 삭제 기능 추가" />
     <MESSAGE value="style: 이름 변경" />
     <MESSAGE value="feat: 이모지 글자 1개로 인식하게 변경" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 이모지 글자 1개로 인식하게 변경" />
+    <MESSAGE value="refactor: 데이터베이스 값을 Diary 객체로 변경" />
+    <MESSAGE value="refactor: 데이터베이스 계층에서 단일 조회 시 Optional을 사용해 NPE를 해결" />
+    <MESSAGE value="refactor: Main에서 처리할 수 있는 InvalidInputException으로 변경" />
+    <MESSAGE value="refactor: Soft Delete로 변경하기 위해 삭제 플래그 컬럼 추가" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor: Soft Delete로 변경하기 위해 삭제 플래그 컬럼 추가" />
   </component>
 </project>

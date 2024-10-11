@@ -1,5 +1,6 @@
 package org.sopt.week1;
 
+import static org.sopt.week1.DiaryConstant.*;
 import static org.sopt.week1.Main.UI.*;
 
 import java.time.LocalDate;
@@ -7,7 +8,7 @@ import java.util.List;
 
 public class DiaryService {
 	private final DiaryRepository diaryRepository = new DiaryRepository();
-	private int patchCount = 0;
+	private int patchCount = PATCH_COUNT_DEFAULT.getValue();
 	private LocalDate lastPatchDate = LocalDate.now();
 
 	private void checkDeleted(Diary diary) {
@@ -24,6 +25,7 @@ public class DiaryService {
 
 	private void resetPatchCount() {
 		lastPatchDate = LocalDate.now();
+		patchCount = PATCH_COUNT_DEFAULT.getValue();
 	}
 
 	private void increasePatchCount() {
@@ -35,7 +37,7 @@ public class DiaryService {
 			resetPatchCount();
 		}
 
-		if (patchCount == 2) {
+		if (patchCount == PATCH_COUNT_UPPER_LIMIT.getValue()) {
 			throw new InvalidInputException();
 		}
 	}
