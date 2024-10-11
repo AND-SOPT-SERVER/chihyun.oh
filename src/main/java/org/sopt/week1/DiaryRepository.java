@@ -2,6 +2,7 @@ package org.sopt.week1;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -23,8 +24,8 @@ public class DiaryRepository {
 		storage.remove(diary.getId());
 	}
 
-	Diary findById(final Long id) {
-		return storage.get(id);
+	Optional<Diary> findById(final Long id) {
+		return Optional.of(storage.get(id));
 	}
 
 	List<Diary> findAll() {
