@@ -15,7 +15,7 @@ public class DiaryService {
 	}
 
 	void writeDiary(final String body) {
-		Diary diary = new Diary(null, body.trim());
+		Diary diary = new Diary(null, body.trim(), false);
 
 		diaryRepository.save(diary);
 	}
@@ -38,7 +38,7 @@ public class DiaryService {
 
 	void rewriteDiary(final Long id, final String body) {
 		diaryRepository.findById(id)
-			.ifPresentOrElse(diary -> diaryRepository.save(new Diary(id, body)),
+			.ifPresentOrElse(diary -> diaryRepository.save(new Diary(id, body, false)),
 			() -> {
 				throw new InvalidInputException();
 			}
