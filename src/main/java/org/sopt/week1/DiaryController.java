@@ -1,5 +1,7 @@
 package org.sopt.week1;
 
+import static org.sopt.week1.Main.UI.*;
+
 import java.util.List;
 
 public class DiaryController {
@@ -22,13 +24,13 @@ public class DiaryController {
 		try {
 			Long parseTest = Long.parseLong(id.trim());
 		} catch (NumberFormatException e) {
-			throw new IllegalArgumentException();
+			throw new InvalidInputException();
 		}
 	}
 
 	private void validateBodyLength(final String body) {
 		if (body.isBlank()) {
-			throw new IllegalArgumentException();
+			throw new InvalidInputException();
 		}
 
 		int length = 0;
@@ -40,7 +42,7 @@ public class DiaryController {
 			++length;
 
 			if (length > 30) {
-				throw new IllegalArgumentException();
+				throw new InvalidInputException();
 			}
 		}
 	}
