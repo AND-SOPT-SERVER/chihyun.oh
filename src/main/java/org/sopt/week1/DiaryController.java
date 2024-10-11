@@ -1,5 +1,6 @@
 package org.sopt.week1;
 
+import static org.sopt.week1.DiaryConstant.*;
 import static org.sopt.week1.Main.UI.*;
 
 import java.util.List;
@@ -41,7 +42,7 @@ public class DiaryController {
 
 			++length;
 
-			if (length > 30) {
+			if (length > BODY_LENGTH_UPPER_LIMIT.getValue()) {
 				throw new InvalidInputException();
 			}
 		}
