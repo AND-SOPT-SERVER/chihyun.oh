@@ -1,16 +1,12 @@
 package org.sopt.week1;
 
+import static org.sopt.week1.Main.UI.*;
+
 import java.util.List;
 
 public class DiaryService {
 	private final DiaryRepository diaryRepository = new DiaryRepository();
 	private final DiaryRestoreRepository diaryRestoreRepository = new DiaryRestoreRepository();
-
-	private void checkExist(final Long id) {
-		if (diaryRepository.findById(id) == null) {
-			throw new NullPointerException();
-		}
-	}
 
 	private void checkExistRecovery(final Long id) {
 		if (diaryRestoreRepository.findById(id) == null) {
@@ -25,12 +21,15 @@ public class DiaryService {
 	}
 
 	void deleteDiary(final Long id) {
-		checkExist(id);
-
-		Diary diary = diaryRepository.findById(id);
-
-		diaryRepository.delete(diary);
-		diaryRestoreRepository.save(diary);
+		diaryRepository.findById(id)
+			.ifPresentOrElse(diary -> {
+				diaryRepository.delete(diary);
+				diaryRestoreRepository.save(diary);
+			},
+			() -> {
+				throw new InvalidInputException();
+			}
+		);
 	}
 
 	List<Diary> getDiaryList() {
@@ -38,11 +37,12 @@ public class DiaryService {
 	}
 
 	void rewriteDiary(final Long id, final String body) {
-		checkExist(id);
-
-		Diary diary = new Diary(id, body.trim());
-
-		diaryRepository.save(diary);
+		diaryRepository.findById(id)
+			.ifPresentOrElse(diary -> diaryRepository.save(new Diary(id, body)),
+			() -> {
+				throw new InvalidInputException();
+			}
+		);
 	}
 
 	List<Diary> getRestoreDiaryList() {
