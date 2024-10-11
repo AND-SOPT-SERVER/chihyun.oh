@@ -43,7 +43,7 @@ public class DiaryService {
 	}
 
 	void writeDiary(final String body) {
-		Diary diary = new Diary(null, body.trim(), false);
+		Diary diary = new Diary(null, body.trim());
 
 		diaryRepository.save(diary);
 	}
