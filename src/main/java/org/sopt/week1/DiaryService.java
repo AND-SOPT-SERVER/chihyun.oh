@@ -10,7 +10,7 @@ public class DiaryService {
 
 	private void checkExistRecovery(final Long id) {
 		if (diaryRestoreRepository.findById(id) == null) {
-			throw new NullPointerException();
+			throw new InvalidInputException();
 		}
 	}
 
