@@ -18,4 +18,8 @@ public class Diary {
 	public String getBody() {
 		return body;
 	}
+
+	public boolean getIsDeleted() {
+		return isDeleted;
+	}
 }
