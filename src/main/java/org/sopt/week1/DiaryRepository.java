@@ -29,6 +29,8 @@ public class DiaryRepository {
 	}
 
 	List<Diary> findAll() {
-		return storage.values().stream().toList();
+		return storage.entrySet().stream()
+			.map(entry -> new Diary(entry.getKey(), entry.getValue()))
+			.toList();
 	}
 }
