@@ -13,20 +13,28 @@ public class DiaryEntity {
 	public Long id;
 
 	@Column
-	public String name;
+	public String title;
+
+	@Column
+	public String content;
 
 	public DiaryEntity() {
 	}
 
-	public DiaryEntity(String name) {
-		this.name = name;
+	public DiaryEntity(String title, String content) {
+		this.title = title;
+		this.content = content;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public String getName() {
-		return name;
+	public String getTitle() {
+		return title;
+	}
+
+	public String getContent() {
+		return content;
 	}
 }
