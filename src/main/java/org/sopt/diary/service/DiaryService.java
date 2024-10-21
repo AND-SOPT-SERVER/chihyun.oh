@@ -17,7 +17,7 @@ public class DiaryService {
 
 	public void createDiary() {
 		diaryRepository.save(
-			new DiaryEntity("치현")
+			new DiaryEntity("치현", "")
 		);
 	}
 
@@ -30,7 +30,7 @@ public class DiaryService {
 
 		for (DiaryEntity diaryEntity : diaryEntityList) {
 			diaryList.add(
-				new Diary(diaryEntity.getId(), diaryEntity.getName())
+				new Diary(diaryEntity.getId(), diaryEntity.getTitle(), diaryEntity.getContent())
 			);
 		}
 
