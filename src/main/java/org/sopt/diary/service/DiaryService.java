@@ -15,22 +15,22 @@ public class DiaryService {
 		this.diaryRepository = diaryRepository;
 	}
 
-	public void createDiary() {
+	public void createDiary(DiaryDto diaryDto) {
 		diaryRepository.save(
-			new DiaryEntity("치현", "")
+				DiaryEntity.toDiaryEntity(diaryDto)
 		);
 	}
 
-	public List<Diary> getList() {
+	public List<DiaryDto> getList() {
 		// (1) repository 로 부터 DiaryEntity 를 가져옴
 		final List<DiaryEntity> diaryEntityList = diaryRepository.findAll();
 
 		// (2) DiaryEntity 를 Diary 로 변환해주는 작업
-		final List<Diary> diaryList = new ArrayList<>();
+		final List<DiaryDto> diaryList = new ArrayList<>();
 
 		for (DiaryEntity diaryEntity : diaryEntityList) {
 			diaryList.add(
-				new Diary(diaryEntity.getId(), diaryEntity.getTitle(), diaryEntity.getContent())
+				new DiaryDto(diaryEntity.getId(), diaryEntity.getTitle(), diaryEntity.getContent())
 			);
 		}
 

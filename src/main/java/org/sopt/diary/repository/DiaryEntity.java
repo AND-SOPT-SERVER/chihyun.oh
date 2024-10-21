@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import org.sopt.diary.service.DiaryDto;
 
 @Entity
 public class DiaryEntity {
@@ -24,6 +25,13 @@ public class DiaryEntity {
 	public DiaryEntity(String title, String content) {
 		this.title = title;
 		this.content = content;
+	}
+
+	public static DiaryEntity toDiaryEntity(DiaryDto diaryDTO) {
+		return new DiaryEntity(
+				diaryDTO.getTitle(),
+				diaryDTO.getContent()
+		);
 	}
 
 	public Long getId() {
