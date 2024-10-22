@@ -55,4 +55,11 @@ public class DiaryService {
 
         diaryRepository.save(diaryEntity);
     }
+
+    @Transactional
+    public void delete(Long id) {
+        validateExist(diaryRepository.findById(id));
+
+        diaryRepository.deleteById(id);
+    }
 }
