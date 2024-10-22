@@ -7,6 +7,7 @@ import org.sopt.diary.dto.Diary;
 import org.sopt.diary.repository.DiaryEntity;
 import org.sopt.diary.repository.DiaryRepository;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class DiaryService {
@@ -14,6 +15,12 @@ public class DiaryService {
 
     public DiaryService(DiaryRepository diaryRepository) {
         this.diaryRepository = diaryRepository;
+    }
+
+    private void validateExist(Optional<DiaryEntity> diaryEntity) {
+        if (diaryEntity.isEmpty()) {
+            throw new IllegalArgumentException(ErrorMessage.NOT_EXIST_DIARY.getMessage());
+        }
     }
 
     public void createDiary(final Diary diary) {
@@ -29,12 +36,23 @@ public class DiaryService {
     }
 
     public Diary getDiaryDetail(final Long id) {
-        Optional<Diary> diary = diaryRepository.findById(id).map(Diary::toDiaryDto);
+        Optional<DiaryEntity> foundDiaryEntity = diaryRepository.findById(id);
 
-        if (diary.isPresent()) {
-            return diary.get();
-        }
+        validateExist(foundDiaryEntity);
 
-        throw new IllegalArgumentException(ErrorMessage.NOT_EXIST_DIARY.getMessage());
+        return foundDiaryEntity.map(Diary::toDiaryDto).get();
+    }
+
+    @Transactional
+    public void update(final Long id, final Diary diary) {
+        Optional<DiaryEntity> foundDiaryEntity = diaryRepository.findById(id);
+
+        validateExist(foundDiaryEntity);
+
+        DiaryEntity diaryEntity = foundDiaryEntity.get();
+        diaryEntity.setTitle(diary.getTitle());
+        diaryEntity.setContent(diary.getContent());
+
+        diaryRepository.save(diaryEntity);
     }
 }

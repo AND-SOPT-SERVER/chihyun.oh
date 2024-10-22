@@ -40,22 +40,8 @@ public class DiaryEntity {
         this.content = content;
     }
 
-    public DiaryEntity(Long id, String title, String content) {
-        this.id = id;
-        this.title = title;
-        this.content = content;
-    }
-
     public static DiaryEntity toCreateDiaryEntity(Diary diary) {
         return new DiaryEntity(
-                diary.getTitle(),
-                diary.getContent()
-        );
-    }
-
-    public static DiaryEntity toUpdateDiaryEntity(Diary diary) {
-        return new DiaryEntity(
-                diary.getId(),
                 diary.getTitle(),
                 diary.getContent()
         );
@@ -81,5 +67,15 @@ public class DiaryEntity {
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
+    }
+
+    public void setTitle(final String title) {
+        this.title = title;
+    }
+
+    public void setContent(final String content) {
+        validateContentLength(content);
+
+        this.content = content;
     }
 }

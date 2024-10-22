@@ -10,6 +10,7 @@ import org.sopt.diary.service.DiaryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -45,5 +46,13 @@ public class DiaryController {
         DiaryDetailResponse diaryDetailResponse = DiaryDetailResponse.toDiaryDetailResponse(diary);
 
         return ResponseEntity.ok(diaryDetailResponse);
+    }
+
+    @PatchMapping("/diary/{id}")
+    ResponseEntity<String> update(@PathVariable Long id, @RequestBody DiaryRequest diaryRequest) {
+        Diary diary = Diary.toDiaryDto(diaryRequest);
+        diaryService.update(id, diary);
+
+        return ResponseEntity.ok(ResponseMessage.DIARY_UPDATED);
     }
 }
