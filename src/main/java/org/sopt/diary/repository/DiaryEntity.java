@@ -2,35 +2,43 @@ package org.sopt.diary.repository;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import org.sopt.diary.service.DiaryDto;
+import java.time.LocalDateTime;
+import org.sopt.diary.dto.Diary;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 public class DiaryEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public Long id;
+	private Long id;
 
 	@Column
-	public String title;
+	private String title;
 
 	@Column
-	public String content;
+	private String content;
 
-	public DiaryEntity() {
+	@CreatedDate
+	protected LocalDateTime createdAt;
+
+	protected DiaryEntity() {
 	}
 
-	public DiaryEntity(String title, String content) {
+	private DiaryEntity(String title, String content) {
 		this.title = title;
 		this.content = content;
 	}
 
-	public static DiaryEntity toDiaryEntity(DiaryDto diaryDTO) {
+	public static DiaryEntity toDiaryEntity(Diary diary) {
 		return new DiaryEntity(
-				diaryDTO.getTitle(),
-				diaryDTO.getContent()
+				diary.getTitle(),
+				diary.getContent()
 		);
 	}
 
@@ -44,5 +52,9 @@ public class DiaryEntity {
 
 	public String getContent() {
 		return content;
+	}
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
 	}
 }
