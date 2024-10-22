@@ -40,8 +40,22 @@ public class DiaryEntity {
         this.content = content;
     }
 
-    public static DiaryEntity toDiaryEntity(Diary diary) {
+    public DiaryEntity(Long id, String title, String content) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+    }
+
+    public static DiaryEntity toCreateDiaryEntity(Diary diary) {
         return new DiaryEntity(
+                diary.getTitle(),
+                diary.getContent()
+        );
+    }
+
+    public static DiaryEntity toUpdateDiaryEntity(Diary diary) {
+        return new DiaryEntity(
+                diary.getId(),
                 diary.getTitle(),
                 diary.getContent()
         );

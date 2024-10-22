@@ -1,15 +1,16 @@
-package org.sopt.diary.dto;
+package org.sopt.diary.dto.response;
 
 import java.time.LocalDateTime;
+import org.sopt.diary.dto.Diary;
 
-public class DiaryRequest {
-    private final Long id;
+public class DiaryDetailResponse {
+    private final long id;
     private final String title;
     private final String content;
     private final LocalDateTime createdAt;
 
-    protected DiaryRequest(
-            final Long id,
+    private DiaryDetailResponse(
+            final long id,
             final String title,
             final String content,
             final LocalDateTime createdAt
@@ -20,7 +21,16 @@ public class DiaryRequest {
         this.createdAt = createdAt;
     }
 
-    public Long getId() {
+    public static DiaryDetailResponse toDiaryDetailResponse(final Diary diary) {
+        return new DiaryDetailResponse(
+                diary.getId(),
+                diary.getTitle(),
+                diary.getContent(),
+                diary.getCreatedAt()
+        );
+    }
+
+    public long getId() {
         return id;
     }
 
