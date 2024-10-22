@@ -22,9 +22,12 @@ public class DiaryEntity {
     private Long id;
 
     @Column
-    private String title;
+    private String name;
 
     @Column
+    private String title;
+
+    @Column(length = MAX_CONTENT_LENGTH)
     private String content;
 
     @CreatedDate
@@ -33,15 +36,17 @@ public class DiaryEntity {
     protected DiaryEntity() {
     }
 
-    private DiaryEntity(String title, String content) {
+    private DiaryEntity(final String name, final String title, final String content) {
         validateContentLength(content);
 
+        this.name = name;
         this.title = title;
         this.content = content;
     }
 
     public static DiaryEntity toCreateDiaryEntity(Diary diary) {
         return new DiaryEntity(
+                diary.getName(),
                 diary.getTitle(),
                 diary.getContent()
         );
@@ -55,6 +60,10 @@ public class DiaryEntity {
 
     public Long getId() {
         return id;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public String getTitle() {
