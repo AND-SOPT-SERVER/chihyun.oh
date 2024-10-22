@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import java.time.LocalDateTime;
+import org.sopt.diary.constant.ErrorMessage;
 import org.sopt.diary.dto.Diary;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -14,47 +15,57 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 public class DiaryEntity {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    private static final int MAX_CONTENT_LENGTH = 30;
 
-	@Column
-	private String title;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	@Column
-	private String content;
+    @Column
+    private String title;
 
-	@CreatedDate
-	protected LocalDateTime createdAt;
+    @Column
+    private String content;
 
-	protected DiaryEntity() {
-	}
+    @CreatedDate
+    protected LocalDateTime createdAt;
 
-	private DiaryEntity(String title, String content) {
-		this.title = title;
-		this.content = content;
-	}
+    protected DiaryEntity() {
+    }
 
-	public static DiaryEntity toDiaryEntity(Diary diary) {
-		return new DiaryEntity(
-				diary.getTitle(),
-				diary.getContent()
-		);
-	}
+    private DiaryEntity(String title, String content) {
+        validateContentLength(content);
 
-	public Long getId() {
-		return id;
-	}
+        this.title = title;
+        this.content = content;
+    }
 
-	public String getTitle() {
-		return title;
-	}
+    public static DiaryEntity toDiaryEntity(Diary diary) {
+        return new DiaryEntity(
+                diary.getTitle(),
+                diary.getContent()
+        );
+    }
 
-	public String getContent() {
-		return content;
-	}
+    private void validateContentLength(String content) {
+        if (content.length() > MAX_CONTENT_LENGTH) {
+            throw new IllegalArgumentException(ErrorMessage.CONTENT_LENGTH_OVER.getMessage());
+        }
+    }
 
-	public LocalDateTime getCreatedAt() {
-		return createdAt;
-	}
+    public Long getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
 }
