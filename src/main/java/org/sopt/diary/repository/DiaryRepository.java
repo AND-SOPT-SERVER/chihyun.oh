@@ -9,5 +9,7 @@ import org.springframework.stereotype.Component;
 public interface DiaryRepository extends JpaRepository<DiaryEntity, Long> {
     public List<DiaryEntity> findTop10ByOrderByCreatedAtDesc();
 
+    public List<DiaryEntity> findTop10ByCategoryOrderByCreatedAtDesc(String category);
+
     public Optional<DiaryEntity> findByTitle(String title);
 }
