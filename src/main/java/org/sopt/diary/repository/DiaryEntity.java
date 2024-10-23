@@ -6,10 +6,13 @@ import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import java.time.LocalDateTime;
 import org.sopt.diary.constant.ErrorMessage;
 import org.sopt.diary.dto.Diary;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
@@ -30,8 +33,15 @@ public class DiaryEntity {
     @Column(length = MAX_CONTENT_LENGTH)
     private String content;
 
+    @Column
+    private Integer contentLength;
+
     @CreatedDate
-    protected LocalDateTime createdAt;
+    @Column(updatable = false)
+    private LocalDateTime createdAt;
+
+    @LastModifiedDate
+    private LocalDateTime updatedAt;
 
     protected DiaryEntity() {
     }
@@ -50,6 +60,12 @@ public class DiaryEntity {
                 diary.getTitle(),
                 diary.getContent()
         );
+    }
+
+    @PrePersist
+    @PreUpdate
+    void saveContentLength() {
+        contentLength = content.length();
     }
 
     private void validateContentLength(String content) {
@@ -76,6 +92,10 @@ public class DiaryEntity {
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
     }
 
     public void setTitle(final String title) {

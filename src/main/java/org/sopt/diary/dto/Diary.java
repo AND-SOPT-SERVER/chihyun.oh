@@ -10,19 +10,22 @@ public class Diary {
     private final String title;
     private final String content;
     private final LocalDateTime createdAt;
+    private final LocalDateTime updatedAt;
 
     private Diary(
             final Long id,
             final String name,
             final String title,
             final String content,
-            final LocalDateTime createdAt
+            final LocalDateTime createdAt,
+            final LocalDateTime updatedAt
     ) {
         this.id = id;
         this.name = name;
         this.title = title;
         this.content = content;
         this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
     public static Diary toDiaryDto(final DiaryRequest diaryRequest) {
@@ -31,7 +34,9 @@ public class Diary {
                 diaryRequest.getName(),
                 diaryRequest.getTitle(),
                 diaryRequest.getContent(),
-                diaryRequest.getCreatedAt());
+                null,
+                null
+        );
     }
 
     public static Diary toDiaryDto(final DiaryEntity diaryEntity) {
@@ -40,7 +45,9 @@ public class Diary {
                 diaryEntity.getName(),
                 diaryEntity.getTitle(),
                 diaryEntity.getContent(),
-                diaryEntity.getCreatedAt());
+                diaryEntity.getCreatedAt(),
+                diaryEntity.getUpdatedAt()
+        );
     }
 
     public Long getId() {
@@ -61,5 +68,9 @@ public class Diary {
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
     }
 }

@@ -9,19 +9,22 @@ public class DiaryDetailResponse {
     private final String title;
     private final String content;
     private final LocalDateTime createdAt;
+    private final LocalDateTime updatedAt;
 
     private DiaryDetailResponse(
             final long id,
             final String name,
             final String title,
             final String content,
-            final LocalDateTime createdAt
+            final LocalDateTime createdAt,
+            final LocalDateTime updatedAt
     ) {
         this.id = id;
         this.name = name;
         this.title = title;
         this.content = content;
         this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
     public static DiaryDetailResponse toDiaryDetailResponse(final Diary diary) {
@@ -30,7 +33,8 @@ public class DiaryDetailResponse {
                 diary.getName(),
                 diary.getTitle(),
                 diary.getContent(),
-                diary.getCreatedAt()
+                diary.getCreatedAt(),
+                diary.getUpdatedAt()
         );
     }
 
@@ -52,5 +56,9 @@ public class DiaryDetailResponse {
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
     }
 }
