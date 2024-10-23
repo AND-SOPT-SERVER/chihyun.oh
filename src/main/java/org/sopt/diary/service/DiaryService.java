@@ -3,7 +3,6 @@ package org.sopt.diary.service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-import org.sopt.diary.constant.ErrorMessage;
 import org.sopt.diary.dto.Diary;
 import org.sopt.diary.exception.CustomException;
 import org.sopt.diary.exception.ErrorCode;
@@ -23,7 +22,7 @@ public class DiaryService {
 
     private void validateExist(Optional<DiaryEntity> diaryEntity) {
         if (diaryEntity.isEmpty()) {
-            throw new IllegalArgumentException(ErrorMessage.NOT_EXIST_DIARY.getMessage());
+            throw new CustomException(ErrorCode.DIARY_NOT_EXIST);
         }
     }
 
