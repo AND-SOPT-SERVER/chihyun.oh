@@ -53,8 +53,14 @@ public class DiaryService {
         );
     }
 
-    public List<Diary> getDiaryList() {
-        return diaryRepository.findTop10ByOrderByCreatedAtDesc().stream()
+    public List<Diary> getDiaryList(String category) {
+        if (category.isBlank()) {
+            return diaryRepository.findTop10ByOrderByCreatedAtDesc().stream()
+                    .map(Diary::toDiaryDto)
+                    .toList();
+        }
+
+        return diaryRepository.findTop10ByCategoryOrderByCreatedAtDesc(category).stream()
                 .map(Diary::toDiaryDto)
                 .toList();
     }

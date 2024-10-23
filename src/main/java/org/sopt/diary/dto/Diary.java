@@ -6,6 +6,7 @@ import org.sopt.diary.repository.DiaryEntity;
 
 public class Diary {
     private final Long id;
+    private final String category;
     private final String name;
     private final String title;
     private final String content;
@@ -14,6 +15,7 @@ public class Diary {
 
     private Diary(
             final Long id,
+            final String category,
             final String name,
             final String title,
             final String content,
@@ -21,6 +23,7 @@ public class Diary {
             final LocalDateTime updatedAt
     ) {
         this.id = id;
+        this.category = category;
         this.name = name;
         this.title = title;
         this.content = content;
@@ -31,6 +34,7 @@ public class Diary {
     public static Diary toDiaryDto(final DiaryRequest diaryRequest) {
         return new Diary(
                 diaryRequest.getId(),
+                diaryRequest.getCategory(),
                 diaryRequest.getName(),
                 diaryRequest.getTitle(),
                 diaryRequest.getContent(),
@@ -42,6 +46,7 @@ public class Diary {
     public static Diary toDiaryDto(final DiaryEntity diaryEntity) {
         return new Diary(
                 diaryEntity.getId(),
+                diaryEntity.getCategory(),
                 diaryEntity.getName(),
                 diaryEntity.getTitle(),
                 diaryEntity.getContent(),
@@ -52,6 +57,10 @@ public class Diary {
 
     public Long getId() {
         return id;
+    }
+
+    public String getCategory() {
+        return category;
     }
 
     public String getName() {
