@@ -38,7 +38,16 @@ public class DiaryService {
         }
     }
 
+    private void validateNotExistTitle(String title) {
+        diaryRepository.findByTitle(title)
+                .ifPresent(diary -> {
+                    throw new CustomException(ErrorCode.TITLE_DUPLICATED);
+                });
+    }
+
     public void createDiary(final Diary diary) {
+        validateNotExistTitle(diary.getTitle());
+
         diaryRepository.save(
                 DiaryEntity.toCreateDiaryEntity(diary)
         );
@@ -66,6 +75,7 @@ public class DiaryService {
         DiaryEntity diaryEntity = foundDiaryEntity.get();
         validateOverEnablePatchTime(diaryEntity);
 
+        validateNotExistTitle(diary.getTitle());
         diaryEntity.setTitle(diary.getTitle());
         diaryEntity.setContent(diary.getContent());
 
