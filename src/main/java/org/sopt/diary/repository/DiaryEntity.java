@@ -9,8 +9,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import java.time.LocalDateTime;
-import org.sopt.diary.constant.ErrorMessage;
 import org.sopt.diary.dto.Diary;
+import org.sopt.diary.exception.CustomException;
+import org.sopt.diary.exception.ErrorCode;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -70,7 +71,7 @@ public class DiaryEntity {
 
     private void validateContentLength(String content) {
         if (content.length() > MAX_CONTENT_LENGTH) {
-            throw new IllegalArgumentException(ErrorMessage.CONTENT_LENGTH_OVER.getMessage());
+            throw new CustomException(ErrorCode.CONTENT_LENGTH_OVER);
         }
     }
 
