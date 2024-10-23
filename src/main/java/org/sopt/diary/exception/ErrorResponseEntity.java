@@ -3,9 +3,9 @@ package org.sopt.diary.exception;
 import org.springframework.http.ResponseEntity;
 
 public class ErrorResponseEntity {
-    private int status;
-    private String name;
-    private String message;
+    private final int status;
+    private final String name;
+    private final String message;
 
     private ErrorResponseEntity(int status, String name, String message) {
         this.status = status;
