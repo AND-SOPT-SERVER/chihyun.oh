@@ -19,6 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Component
 public class DiaryService {
     private static final int PATCH_TIME_LIMIT = 5;
+    private static final int START_PAGE = 0;
+    private static final int SEARCH_DIARY_LIST_SIZE = 10;
     private final DiaryRepository diaryRepository;
 
     public DiaryService(DiaryRepository diaryRepository) {
@@ -58,7 +60,7 @@ public class DiaryService {
     }
 
     private Pageable getPageableDiaryList() {
-        return PageRequest.of(0, 10, getSortDiaryList());
+        return PageRequest.of(START_PAGE, SEARCH_DIARY_LIST_SIZE, getSortDiaryList());
     }
 
     public void createDiary(final Diary diary) {
