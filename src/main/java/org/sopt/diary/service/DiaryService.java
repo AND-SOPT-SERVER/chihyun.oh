@@ -65,7 +65,7 @@ public class DiaryService {
 
     @Transactional
     public void createDiary(final Diary diary) {
-        validateNotExistTitle(diary.getTitle());
+        validateNotExistTitle(diary.title());
 
         diaryRepository.save(
                 DiaryEntity.toCreateDiaryEntity(diary)
@@ -100,9 +100,9 @@ public class DiaryService {
         DiaryEntity diaryEntity = foundDiaryEntity.get();
         validateOverEnablePatchTime(diaryEntity);
 
-        validateNotExistTitle(diary.getTitle());
-        diaryEntity.setTitle(diary.getTitle());
-        diaryEntity.setContent(diary.getContent());
+        validateNotExistTitle(diary.title());
+        diaryEntity.setTitle(diary.title());
+        diaryEntity.setContent(diary.content());
 
         diaryRepository.save(diaryEntity);
     }

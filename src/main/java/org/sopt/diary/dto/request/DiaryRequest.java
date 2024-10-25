@@ -1,43 +1,10 @@
 package org.sopt.diary.dto.request;
 
-public class DiaryRequest {
-    private final Long id;
-    private final String category;
-    private final String name;
-    private final String title;
-    private final String content;
-
-    protected DiaryRequest(
-            final Long id,
-            final String category,
-            final String name,
-            final String title,
-            final String content
-    ) {
-        this.id = id;
-        this.category = category;
-        this.name = name;
-        this.title = title;
-        this.content = content;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getContent() {
-        return content;
-    }
+public record DiaryRequest(
+        Long id,
+        String category,
+        String name,
+        String title,
+        String content
+) {
 }

@@ -61,10 +61,10 @@ public class DiaryEntity {
 
     public static DiaryEntity toCreateDiaryEntity(Diary diary) {
         return new DiaryEntity(
-                diary.getCategory(),
-                diary.getName(),
-                diary.getTitle(),
-                diary.getContent()
+                diary.category(),
+                diary.name(),
+                diary.title(),
+                diary.content()
         );
     }
 
