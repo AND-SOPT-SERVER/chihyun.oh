@@ -63,6 +63,7 @@ public class DiaryService {
         return PageRequest.of(START_PAGE, SEARCH_DIARY_LIST_SIZE, getSortDiaryList());
     }
 
+    @Transactional
     public void createDiary(final Diary diary) {
         validateNotExistTitle(diary.getTitle());
 
@@ -71,6 +72,7 @@ public class DiaryService {
         );
     }
 
+    @Transactional(readOnly = true)
     public List<Diary> getDiaryList(DiaryListConditionRequest diaryListConditionRequest) {
         return diaryRepository.findAll(
                         DiaryListSpecification.searchDiaryList(diaryListConditionRequest.getConditions()),
@@ -81,6 +83,7 @@ public class DiaryService {
                 .toList();
     }
 
+    @Transactional(readOnly = true)
     public Diary getDiaryDetail(final Long id) {
         Optional<DiaryEntity> foundDiaryEntity = diaryRepository.findById(id);
 
