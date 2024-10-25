@@ -4,10 +4,15 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import org.sopt.diary.dto.Diary;
+import org.sopt.diary.dto.request.DiaryListConditionRequest;
 import org.sopt.diary.exception.CustomException;
 import org.sopt.diary.exception.ErrorCode;
 import org.sopt.diary.repository.DiaryEntity;
 import org.sopt.diary.repository.DiaryRepository;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,6 +50,17 @@ public class DiaryService {
                 });
     }
 
+    private Sort getSortDiaryList() {
+        return Sort.by(
+                Order.desc("createdAt"),
+                Order.desc("contentLength")
+        );
+    }
+
+    private Pageable getPageableDiaryList() {
+        return PageRequest.of(0, 10, getSortDiaryList());
+    }
+
     public void createDiary(final Diary diary) {
         validateNotExistTitle(diary.getTitle());
 
@@ -53,14 +69,12 @@ public class DiaryService {
         );
     }
 
-    public List<Diary> getDiaryList(String category) {
-        if (category.isBlank()) {
-            return diaryRepository.findTop10ByOrderByCreatedAtDesc().stream()
-                    .map(Diary::toDiaryDto)
-                    .toList();
-        }
-
-        return diaryRepository.findTop10ByCategoryOrderByCreatedAtDesc(category).stream()
+    public List<Diary> getDiaryList(DiaryListConditionRequest diaryListConditionRequest) {
+        return diaryRepository.findAll(
+                        DiaryListSpecification.searchDiaryList(diaryListConditionRequest.getConditions()),
+                        getPageableDiaryList()
+                )
+                .stream()
                 .map(Diary::toDiaryDto)
                 .toList();
     }
