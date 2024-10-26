@@ -1,7 +1,6 @@
 package org.sopt.diary.api;
 
 import java.util.List;
-import org.sopt.diary.constant.ResponseMessage;
 import org.sopt.diary.dto.Diary;
 import org.sopt.diary.dto.request.DiaryListConditionRequest;
 import org.sopt.diary.dto.request.DiaryRequest;
@@ -31,7 +30,7 @@ public class DiaryController {
         Diary diary = Diary.toDiaryDto(diaryRequest);
         diaryService.createDiary(diary);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(ResponseMessage.DIARY_CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @GetMapping("/diary")
@@ -55,13 +54,13 @@ public class DiaryController {
         Diary diary = Diary.toDiaryDto(diaryRequest);
         diaryService.update(id, diary);
 
-        return ResponseEntity.ok(ResponseMessage.DIARY_UPDATED);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/diary/{id}")
     ResponseEntity<String> delete(@PathVariable Long id) {
         diaryService.delete(id);
 
-        return ResponseEntity.ok(ResponseMessage.DIARY_DELETED);
+        return ResponseEntity.ok().build();
     }
 }
