@@ -33,6 +33,7 @@ public class UserService {
     public UserDTO login(final UserDTO userDTO) {
         UserEntity userEntity = userRepository.findOneByNickname(userDTO.nickname()).orElseThrow(
                 // 에러 추가
+                // USER NOT FOUND
                 () -> new IllegalArgumentException()
         );
 
