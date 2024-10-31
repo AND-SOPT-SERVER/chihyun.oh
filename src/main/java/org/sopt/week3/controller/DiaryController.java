@@ -1,7 +1,6 @@
 package org.sopt.week3.controller;
 
 import java.util.List;
-import org.sopt.week3.constant.DiarySortColumn;
 import org.sopt.week3.dto.DiaryDTO;
 import org.sopt.week3.dto.response.DiaryListResponse;
 import org.sopt.week3.service.DiaryService;
@@ -23,8 +22,9 @@ public class DiaryController {
 
     @GetMapping("/")
     ResponseEntity<DiaryListResponse> getDiaries(
-            @RequestParam(required = false, defaultValue = "createdAt", value = "orderby") final String criteria) {
-        List<DiaryDTO> diaryDTOs = diaryService.getDiaries(DiarySortColumn.getSortColumnByCriteria(criteria));
+            @RequestParam(required = false, defaultValue = "createdAt", value = "orderby") final String criteria,
+            @RequestParam(required = false, defaultValue = "0") int page) {
+        List<DiaryDTO> diaryDTOs = diaryService.getDiaries(criteria, page);
         DiaryListResponse diaryListResponse = DiaryListResponse.toDiaryListResponse(diaryDTOs);
 
         return ResponseEntity.ok(diaryListResponse);
