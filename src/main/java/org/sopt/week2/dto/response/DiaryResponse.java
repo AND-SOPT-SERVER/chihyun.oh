@@ -1,6 +1,6 @@
-package org.sopt.diary.dto.response;
+package org.sopt.week2.dto.response;
 
-import org.sopt.diary.dto.Diary;
+import org.sopt.week2.dto.Diary;
 
 public record DiaryResponse(
         long id,

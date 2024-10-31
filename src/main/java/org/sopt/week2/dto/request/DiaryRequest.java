@@ -1,4 +1,4 @@
-package org.sopt.diary.dto.request;
+package org.sopt.week2.dto.request;
 
 public record DiaryRequest(
         Long id,

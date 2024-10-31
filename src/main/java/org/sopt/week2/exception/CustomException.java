@@ -1,4 +1,4 @@
-package org.sopt.diary.exception;
+package org.sopt.week2.exception;
 
 public class CustomException extends RuntimeException {
     ErrorCode errorCode;

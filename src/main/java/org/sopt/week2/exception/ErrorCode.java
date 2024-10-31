@@ -1,4 +1,4 @@
-package org.sopt.diary.exception;
+package org.sopt.week2.exception;
 
 import org.springframework.http.HttpStatus;
 

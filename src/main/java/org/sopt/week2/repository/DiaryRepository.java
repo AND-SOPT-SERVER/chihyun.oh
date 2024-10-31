@@ -1,4 +1,4 @@
-package org.sopt.diary.repository;
+package org.sopt.week2.repository;
 
 import java.util.List;
 import java.util.Optional;
