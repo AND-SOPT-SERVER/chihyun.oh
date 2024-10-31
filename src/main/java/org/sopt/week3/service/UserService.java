@@ -14,10 +14,30 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
+    @Transactional(readOnly = true)
+    protected void validateIsPasswordCorrect(final UserEntity userEntity, final String password) {
+        if (!userEntity.isPasswordCorrect(password)) {
+            // 에러 추가
+            throw new IllegalArgumentException();
+        }
+    }
+
     @Transactional
     public void signUp(final UserDTO userDTO) {
         userRepository.save(
                 UserEntity.toUserEntity(userDTO)
         );
+    }
+
+    @Transactional(readOnly = true)
+    public UserDTO login(final UserDTO userDTO) {
+        UserEntity userEntity = userRepository.findOneByNickname(userDTO.nickname()).orElseThrow(
+                // 에러 추가
+                () -> new IllegalArgumentException()
+        );
+
+        validateIsPasswordCorrect(userEntity, userDTO.password());
+
+        return UserDTO.toUserDTO(userEntity);
     }
 }

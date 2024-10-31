@@ -1,5 +1,6 @@
 package org.sopt.week3.dto.user;
 
+import org.sopt.week3.dto.user.request.UserLoginRequest;
 import org.sopt.week3.dto.user.request.UserSignUpRequest;
 import org.sopt.week3.entity.UserEntity;
 
@@ -13,7 +14,7 @@ public record UserDTO(
         return new UserDTO(
                 userEntity.getId(),
                 userEntity.getUsername(),
-                userEntity.getPassword(),
+                null,
                 userEntity.getNickname()
         );
     }
@@ -24,6 +25,15 @@ public record UserDTO(
                 userSignUpRequest.username(),
                 userSignUpRequest.password(),
                 userSignUpRequest.nickname()
+        );
+    }
+
+    public static UserDTO toUserDTO(final UserLoginRequest userLoginRequest) {
+        return new UserDTO(
+                null,
+                null,
+                userLoginRequest.password(),
+                userLoginRequest.nickname()
         );
     }
 }
