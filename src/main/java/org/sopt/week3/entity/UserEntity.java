@@ -5,7 +5,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.util.List;
 import org.sopt.week3.dto.user.UserDTO;
 
 /**
@@ -28,6 +30,9 @@ public class UserEntity {
 
     @Column(name = "nickname", nullable = false, unique = true)
     private String nickname;
+
+    @OneToMany(mappedBy = "user")
+    private List<DiaryEntity> diaries;
 
     protected UserEntity() {
     }
