@@ -68,11 +68,28 @@ public class DiaryEntity {
 
     public DiaryEntity(final String title, final String content, final Category category, final UserEntity user,
                        final boolean isShare) {
+        validateTitleLength(title);
+        validateContentLength(content);
+
         this.title = title;
         this.content = content;
         this.category = category;
         this.user = user;
         this.isShare = isShare;
+    }
+
+    private void validateTitleLength(final String title) {
+        if (title.length() > MAX_TITLE_LENGTH) {
+            // 임시 에러
+            throw new IllegalArgumentException();
+        }
+    }
+
+    private void validateContentLength(final String content) {
+        if (content.length() > MAX_CONTENT_LENGTH) {
+            // 임시 에러
+            throw new IllegalArgumentException();
+        }
     }
 
     public Long getId() {
