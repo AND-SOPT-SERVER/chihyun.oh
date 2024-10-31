@@ -5,6 +5,8 @@ import org.sopt.week3.constant.DiarySortColumn;
 import org.sopt.week3.dto.DiaryDTO;
 import org.sopt.week3.entity.DiaryEntity;
 import org.sopt.week3.repository.DiaryRepository;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
@@ -12,6 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class DiaryService {
+    private static final int PAGE_SIZE = 10;
+
     private final DiaryRepository diaryRepository;
 
     public DiaryService(DiaryRepository diaryRepository) {
@@ -26,9 +30,20 @@ public class DiaryService {
     }
 
     @Transactional(readOnly = true)
-    public List<DiaryDTO> getDiaries(final DiarySortColumn criteria) {
-        Sort sort = getSortByCriteria(criteria);
-        List<DiaryEntity> diaryEntities = diaryRepository.findAllTop10ByOrderBy(sort);
+    protected Pageable getPageableByPageAndSort(final int page, final Sort sort) {
+        return PageRequest.of(
+                page,
+                PAGE_SIZE,
+                sort
+        );
+    }
+
+    @Transactional(readOnly = true)
+    public List<DiaryDTO> getDiaries(final String criteria, final int page) {
+        Sort sort = getSortByCriteria(DiarySortColumn.getSortColumnByCriteria(criteria));
+        Pageable pageable = getPageableByPageAndSort(page, sort);
+
+        List<DiaryEntity> diaryEntities = diaryRepository.findAllTop10By(pageable);
 
         return diaryEntities.stream()
                 .map(DiaryDTO::toDiaryDTO)
