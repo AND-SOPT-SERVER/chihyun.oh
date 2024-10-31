@@ -44,8 +44,10 @@ public class DiaryEntity {
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
+    // Boolean 타입은 JPA 자동 명명 규칙에 따라 tinyint(1)로 저장된다.
+    // 반면, boolean 원시 타입은 bit(1)로 저장되어 1,0 의 값을 갖지만, 조회 시 TRUE/FALSE로 동작하지 않는다.
     @Column(nullable = false)
-    private boolean isShare;
+    private Boolean isShare;
 
     @Column(updatable = false)
     private LocalDateTime createdAt;
