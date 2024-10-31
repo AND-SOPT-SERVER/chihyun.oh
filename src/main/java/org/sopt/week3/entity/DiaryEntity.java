@@ -79,15 +79,17 @@ public class DiaryEntity {
     }
 
     private void validateTitleLength(final String title) {
-        if (title.length() > MAX_TITLE_LENGTH) {
+        if (title.isBlank() || title.length() > MAX_TITLE_LENGTH) {
             // 임시 에러
+            // 제목은 1자 ~ 10자
             throw new IllegalArgumentException();
         }
     }
 
     private void validateContentLength(final String content) {
-        if (content.length() > MAX_CONTENT_LENGTH) {
+        if (content.isBlank() || content.length() > MAX_CONTENT_LENGTH) {
             // 임시 에러
+            // 내용은 1자 ~ 30자
             throw new IllegalArgumentException();
         }
     }

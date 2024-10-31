@@ -3,7 +3,6 @@ package org.sopt.week3.service;
 import java.util.List;
 import org.sopt.week3.constant.DiarySortColumn;
 import org.sopt.week3.dto.diary.DiaryDTO;
-import org.sopt.week3.dto.user.UserDTO;
 import org.sopt.week3.entity.DiaryEntity;
 import org.sopt.week3.repository.DiaryRepository;
 import org.springframework.data.domain.PageRequest;
@@ -52,11 +51,11 @@ public class DiaryService {
     }
 
     @Transactional(readOnly = true)
-    public List<DiaryDTO> getMyDiaries(final UserDTO userDTO, final String criteria, final int page) {
+    public List<DiaryDTO> getMyDiaries(final long id, final String criteria, final int page) {
         Sort sort = getSortByCriteria(DiarySortColumn.getSortColumnByCriteria(criteria));
         Pageable pageable = getPageableByPageAndSort(page, sort);
 
-        List<DiaryEntity> diaryEntities = diaryRepository.findAllTop10ByUserId(userDTO.id(), pageable);
+        List<DiaryEntity> diaryEntities = diaryRepository.findAllTop10ByUserId(id, pageable);
 
         return diaryEntities.stream()
                 .map(DiaryDTO::toDiaryDTO)
