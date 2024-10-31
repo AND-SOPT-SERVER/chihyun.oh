@@ -29,7 +29,7 @@ public class UserEntity {
     @Column(name = "nickname", nullable = false, unique = true)
     private String nickname;
 
-    public UserEntity() {
+    protected UserEntity() {
     }
 
     public UserEntity(final String username, final String password, final String nickname) {
