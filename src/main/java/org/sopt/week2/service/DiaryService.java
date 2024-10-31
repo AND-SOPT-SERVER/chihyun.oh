@@ -1,14 +1,14 @@
-package org.sopt.diary.service;
+package org.sopt.week2.service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-import org.sopt.diary.dto.Diary;
-import org.sopt.diary.dto.request.DiaryListConditionRequest;
-import org.sopt.diary.exception.CustomException;
-import org.sopt.diary.exception.ErrorCode;
-import org.sopt.diary.repository.DiaryEntity;
-import org.sopt.diary.repository.DiaryRepository;
+import org.sopt.week2.dto.Diary;
+import org.sopt.week2.dto.request.DiaryListConditionRequest;
+import org.sopt.week2.exception.CustomException;
+import org.sopt.week2.exception.ErrorCode;
+import org.sopt.week2.repository.DiaryEntity;
+import org.sopt.week2.repository.DiaryRepository;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;

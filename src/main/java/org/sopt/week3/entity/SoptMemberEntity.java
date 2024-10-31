@@ -1,4 +1,4 @@
-package org.sopt.week3;
+package org.sopt.week3.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

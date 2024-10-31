@@ -1,7 +1,7 @@
-package org.sopt.diary.dto.response;
+package org.sopt.week2.dto.response;
 
 import java.util.List;
-import org.sopt.diary.dto.Diary;
+import org.sopt.week2.dto.Diary;
 
 public record DiaryListResponse(
         List<DiaryResponse> diaryList

@@ -1,4 +1,4 @@
-package org.sopt.diary.repository;
+package org.sopt.week2.repository;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,9 +9,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import java.time.LocalDateTime;
-import org.sopt.diary.dto.Diary;
-import org.sopt.diary.exception.CustomException;
-import org.sopt.diary.exception.ErrorCode;
+import org.sopt.week2.dto.Diary;
+import org.sopt.week2.exception.CustomException;
+import org.sopt.week2.exception.ErrorCode;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;

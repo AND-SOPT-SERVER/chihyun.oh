@@ -1,12 +1,12 @@
-package org.sopt.diary.api;
+package org.sopt.week2.api;
 
 import java.util.List;
-import org.sopt.diary.dto.Diary;
-import org.sopt.diary.dto.request.DiaryListConditionRequest;
-import org.sopt.diary.dto.request.DiaryRequest;
-import org.sopt.diary.dto.response.DiaryDetailResponse;
-import org.sopt.diary.dto.response.DiaryListResponse;
-import org.sopt.diary.service.DiaryService;
+import org.sopt.week2.dto.Diary;
+import org.sopt.week2.dto.request.DiaryListConditionRequest;
+import org.sopt.week2.dto.request.DiaryRequest;
+import org.sopt.week2.dto.response.DiaryDetailResponse;
+import org.sopt.week2.dto.response.DiaryListResponse;
+import org.sopt.week2.service.DiaryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;

@@ -1,7 +1,7 @@
-package org.sopt.diary.dto.response;
+package org.sopt.week2.dto.response;
 
 import java.time.LocalDateTime;
-import org.sopt.diary.dto.Diary;
+import org.sopt.week2.dto.Diary;
 
 public record DiaryDetailResponse(
         long id,

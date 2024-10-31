@@ -1,8 +1,8 @@
-package org.sopt.diary.dto;
+package org.sopt.week2.dto;
 
 import java.time.LocalDateTime;
-import org.sopt.diary.dto.request.DiaryRequest;
-import org.sopt.diary.repository.DiaryEntity;
+import org.sopt.week2.dto.request.DiaryRequest;
+import org.sopt.week2.repository.DiaryEntity;
 
 public record Diary(
         Long id,

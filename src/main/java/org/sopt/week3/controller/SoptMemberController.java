@@ -1,16 +1,18 @@
-package org.sopt.week3;
+package org.sopt.week3.controller;
 
 import java.util.List;
+import org.sopt.week3.entity.SoptMemberEntity;
+import org.sopt.week3.repository.SoptMemberRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class Controller {
+public class SoptMemberController {
     private final SoptMemberRepository soptMemberRepository;
 
-    public Controller(SoptMemberRepository soptMemberRepository) {
+    public SoptMemberController(SoptMemberRepository soptMemberRepository) {
         this.soptMemberRepository = soptMemberRepository;
     }
 

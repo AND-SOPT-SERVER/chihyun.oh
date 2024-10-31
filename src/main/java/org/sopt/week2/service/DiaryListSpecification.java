@@ -1,10 +1,10 @@
-package org.sopt.diary.service;
+package org.sopt.week2.service;
 
 import jakarta.persistence.criteria.Predicate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import org.sopt.diary.repository.DiaryEntity;
+import org.sopt.week2.repository.DiaryEntity;
 import org.springframework.data.jpa.domain.Specification;
 
 public class DiaryListSpecification {
