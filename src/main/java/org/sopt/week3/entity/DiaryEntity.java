@@ -45,11 +45,36 @@ public class DiaryEntity {
     protected DiaryEntity() {
     }
 
-    public DiaryEntity(final String title, final String content, final Category category, final UserEntity user, final boolean isShare) {
+    public DiaryEntity(final String title, final String content, final Category category, final UserEntity user,
+                       final boolean isShare) {
         this.title = title;
         this.content = content;
         this.category = category;
         this.user = user;
         this.isShare = isShare;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public boolean isShare() {
+        return isShare;
     }
 }

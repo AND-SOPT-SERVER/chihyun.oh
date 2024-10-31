@@ -8,8 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 /**
- * 일기 공유 서비스를 이용하는 사용자 엔티티 클래스입니다.
- * 아이디는 nickname, 비밀번호는 password 입니다.
+ * 일기 공유 서비스를 이용하는 사용자 엔티티 클래스입니다. 아이디는 nickname, 비밀번호는 password 입니다.
  */
 
 @Entity
@@ -36,5 +35,21 @@ public class UserEntity {
         this.username = username;
         this.password = password;
         this.nickname = nickname;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getNickname() {
+        return nickname;
     }
 }
