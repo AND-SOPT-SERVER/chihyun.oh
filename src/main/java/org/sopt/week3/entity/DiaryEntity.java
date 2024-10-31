@@ -7,7 +7,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
+import java.time.LocalDateTime;
 import org.sopt.week3.constant.Category;
 
 /**
@@ -41,6 +43,14 @@ public class DiaryEntity {
 
     @Column(name = "is_share")
     private boolean isShare;
+
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt;
+
+    @PrePersist
+    private void beforePersist() {
+        createdAt = LocalDateTime.now();
+    }
 
     protected DiaryEntity() {
     }
@@ -76,5 +86,9 @@ public class DiaryEntity {
 
     public boolean isShare() {
         return isShare;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 }
