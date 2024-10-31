@@ -6,5 +6,5 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface DiaryRepository extends JpaRepository<DiaryEntity, Long> {
-    List<DiaryEntity> findAllTop10By(Pageable pageable);
+    List<DiaryEntity> findAllTop10ByIsShareTrue(Pageable pageable);
 }

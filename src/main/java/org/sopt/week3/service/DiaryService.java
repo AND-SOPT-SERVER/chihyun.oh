@@ -43,7 +43,7 @@ public class DiaryService {
         Sort sort = getSortByCriteria(DiarySortColumn.getSortColumnByCriteria(criteria));
         Pageable pageable = getPageableByPageAndSort(page, sort);
 
-        List<DiaryEntity> diaryEntities = diaryRepository.findAllTop10By(pageable);
+        List<DiaryEntity> diaryEntities = diaryRepository.findAllTop10ByIsShareTrue(pageable);
 
         return diaryEntities.stream()
                 .map(DiaryDTO::toDiaryDTO)
