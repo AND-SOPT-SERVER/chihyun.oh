@@ -1,21 +1,21 @@
 package org.sopt.week3.dto.response;
 
-import java.time.LocalDateTime;
+import static org.sopt.week3.constant.CommonPatterns.DATE_FORMAT;
+
 import org.sopt.week3.dto.DiaryDTO;
 
 public record DiaryResponse(
         Long id,
         String title,
         String nickname,
-        LocalDateTime createAt
+        String createAt
 ) {
-
     public static DiaryResponse toDiaryResponse(final DiaryDTO diaryDTO) {
         return new DiaryResponse(
                 diaryDTO.id(),
                 diaryDTO.title(),
                 diaryDTO.userDTO().nickname(),
-                null // TODO: 일기 엔티티에 작성 시간 넣기
+                diaryDTO.createdAt().format(DATE_FORMAT)
         );
     }
 }
