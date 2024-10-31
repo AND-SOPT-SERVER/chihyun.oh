@@ -1,7 +1,8 @@
-package org.sopt.week3.dto;
+package org.sopt.week3.dto.diary;
 
 import java.time.LocalDateTime;
 import org.sopt.week3.constant.Category;
+import org.sopt.week3.dto.user.UserDTO;
 import org.sopt.week3.entity.DiaryEntity;
 
 public record DiaryDTO(

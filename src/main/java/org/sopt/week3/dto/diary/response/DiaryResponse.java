@@ -1,8 +1,8 @@
-package org.sopt.week3.dto.response;
+package org.sopt.week3.dto.diary.response;
 
 import static org.sopt.week3.constant.CommonPatterns.DATE_FORMAT;
 
-import org.sopt.week3.dto.DiaryDTO;
+import org.sopt.week3.dto.diary.DiaryDTO;
 
 public record DiaryResponse(
         Long id,

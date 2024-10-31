@@ -2,7 +2,7 @@ package org.sopt.week3.service;
 
 import java.util.List;
 import org.sopt.week3.constant.DiarySortColumn;
-import org.sopt.week3.dto.DiaryDTO;
+import org.sopt.week3.dto.diary.DiaryDTO;
 import org.sopt.week3.entity.DiaryEntity;
 import org.sopt.week3.repository.DiaryRepository;
 import org.springframework.data.domain.PageRequest;
