@@ -1,8 +1,8 @@
 package org.sopt.week3.controller;
 
 import java.util.List;
-import org.sopt.week3.dto.DiaryDTO;
-import org.sopt.week3.dto.response.DiaryListResponse;
+import org.sopt.week3.dto.diary.DiaryDTO;
+import org.sopt.week3.dto.diary.response.DiaryListResponse;
 import org.sopt.week3.service.DiaryService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
