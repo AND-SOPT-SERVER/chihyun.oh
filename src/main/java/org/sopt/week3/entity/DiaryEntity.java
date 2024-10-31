@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import org.sopt.week3.constant.Category;
@@ -25,31 +26,39 @@ public class DiaryEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
-    @Column(name = "title", unique = true, length = MAX_TITLE_LENGTH)
+    @Column(unique = true, length = MAX_TITLE_LENGTH)
     private String title;
 
-    @Column(name = "content", nullable = false, length = MAX_CONTENT_LENGTH)
+    @Column(nullable = false, length = MAX_CONTENT_LENGTH)
     private String content;
 
-    @Column(name = "category", nullable = false)
+    @Column(nullable = false)
+    private int contentLength;
+
+    @Column(nullable = false)
     private Category category;
 
     @OneToOne
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
-    @Column(name = "is_share")
+    @Column(nullable = false)
     private boolean isShare;
 
-    @Column(name = "created_at", updatable = false)
+    @Column(updatable = false)
     private LocalDateTime createdAt;
 
     @PrePersist
     private void beforePersist() {
         createdAt = LocalDateTime.now();
+        contentLength = content.length();
+    }
+
+    @PreUpdate
+    private void beforeUpdate() {
+        contentLength = content.length();
     }
 
     protected DiaryEntity() {
