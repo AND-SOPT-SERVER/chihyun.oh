@@ -54,8 +54,8 @@ public class UserEntity {
         return username;
     }
 
-    public String getPassword() {
-        return password;
+    public boolean isPasswordCorrect(final String password) {
+        return this.password.equals(password);
     }
 
     public String getNickname() {
