@@ -2,11 +2,15 @@ package org.sopt.week3.controller;
 
 import java.util.List;
 import org.sopt.week3.dto.diary.DiaryDTO;
+import org.sopt.week3.dto.diary.request.DiaryWriteRequest;
 import org.sopt.week3.dto.diary.response.DiariesResponse;
 import org.sopt.week3.dto.diary.response.MyDiariesResponse;
 import org.sopt.week3.service.DiaryService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -43,5 +47,15 @@ public class DiaryController {
         MyDiariesResponse myDiariesResponse = MyDiariesResponse.toMyDiariesResponse(diaryDTOs);
 
         return ResponseEntity.ok(myDiariesResponse);
+    }
+
+    @PostMapping("/")
+    ResponseEntity<String> writeDiary(
+            @RequestBody DiaryWriteRequest diaryWriteRequest,
+            @RequestHeader long id
+    ) {
+        diaryService.writeDiary(DiaryDTO.toDiaryDTO(id, diaryWriteRequest));
+
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }

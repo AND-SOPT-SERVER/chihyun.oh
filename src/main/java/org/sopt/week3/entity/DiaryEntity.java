@@ -12,6 +12,7 @@ import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import org.sopt.week3.constant.Category;
+import org.sopt.week3.dto.diary.DiaryDTO;
 
 /**
  *
@@ -66,8 +67,8 @@ public class DiaryEntity {
     protected DiaryEntity() {
     }
 
-    public DiaryEntity(final String title, final String content, final Category category, final UserEntity user,
-                       final boolean isShare) {
+    private DiaryEntity(final String title, final String content, final Category category, final UserEntity user,
+                        final boolean isShare) {
         validateTitleLength(title);
         validateContentLength(content);
 
@@ -76,6 +77,16 @@ public class DiaryEntity {
         this.category = category;
         this.user = user;
         this.isShare = isShare;
+    }
+
+    public static DiaryEntity toDiaryEntity(final DiaryDTO diaryDTO) {
+        return new DiaryEntity(
+                diaryDTO.title(),
+                diaryDTO.content(),
+                diaryDTO.category(),
+                UserEntity.toUserEntity(diaryDTO.userDTO()),
+                diaryDTO.isShare()
+        );
     }
 
     private void validateTitleLength(final String title) {

@@ -61,4 +61,11 @@ public class DiaryService {
                 .map(DiaryDTO::toDiaryDTO)
                 .toList();
     }
+
+    @Transactional
+    public void writeDiary(final DiaryDTO diaryDTO) {
+        diaryRepository.save(
+                DiaryEntity.toDiaryEntity(diaryDTO)
+        );
+    }
 }

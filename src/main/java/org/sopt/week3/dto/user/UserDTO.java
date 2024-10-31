@@ -36,4 +36,13 @@ public record UserDTO(
                 userLoginRequest.nickname()
         );
     }
+
+    public static UserDTO toUserDTO(final long id) {
+        return new UserDTO(
+                id,
+                null,
+                null,
+                null
+        );
+    }
 }
