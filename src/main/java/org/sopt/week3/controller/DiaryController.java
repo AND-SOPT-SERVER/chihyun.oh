@@ -26,7 +26,7 @@ public class DiaryController {
         this.diaryService = diaryService;
     }
 
-    @GetMapping("/")
+    @GetMapping
     ResponseEntity<DiariesResponse> getDiaries(
             @RequestParam(required = false, defaultValue = "createdAt", value = "orderby") final String criteria,
             @RequestParam(required = false, defaultValue = "0") int page) {
@@ -40,7 +40,7 @@ public class DiaryController {
     ResponseEntity<MyDiariesResponse> getMyDiaries(
             @RequestParam(required = false, defaultValue = "createdAt", value = "orderby") final String criteria,
             @RequestParam(required = false, defaultValue = "0") int page,
-            @RequestHeader long id
+            @RequestHeader(name = "User-Id") long id
     ) {
         // 헤더로 유저 아이디 검사 추가
         List<DiaryDTO> diaryDTOs = diaryService.getMyDiaries(id, criteria, page);
@@ -49,12 +49,12 @@ public class DiaryController {
         return ResponseEntity.ok(myDiariesResponse);
     }
 
-    @PostMapping("/")
+    @PostMapping
     ResponseEntity<String> writeDiary(
             @RequestBody DiaryWriteRequest diaryWriteRequest,
-            @RequestHeader long id
+            @RequestHeader(name = "User-Id") long id
     ) {
-        diaryService.writeDiary(DiaryDTO.toDiaryDTO(id, diaryWriteRequest));
+        diaryService.writeDiary(id, DiaryDTO.toDiaryDTO(diaryWriteRequest));
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

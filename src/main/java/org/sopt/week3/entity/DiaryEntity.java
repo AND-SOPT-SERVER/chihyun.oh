@@ -42,7 +42,7 @@ public class DiaryEntity {
     private Category category;
 
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "user_id")
     private UserEntity user;
 
     // Boolean 타입은 JPA 자동 명명 규칙에 따라 tinyint(1)로 저장된다.
@@ -79,12 +79,12 @@ public class DiaryEntity {
         this.isShare = isShare;
     }
 
-    public static DiaryEntity toDiaryEntity(final DiaryDTO diaryDTO) {
+    public static DiaryEntity toDiaryEntity(final DiaryDTO diaryDTO, final UserEntity user) {
         return new DiaryEntity(
                 diaryDTO.title(),
                 diaryDTO.content(),
                 diaryDTO.category(),
-                UserEntity.toUserEntity(diaryDTO.userDTO()),
+                user,
                 diaryDTO.isShare()
         );
     }

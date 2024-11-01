@@ -27,13 +27,13 @@ public record DiaryDTO(
         );
     }
 
-    public static DiaryDTO toDiaryDTO(final long id, final DiaryWriteRequest diaryWriteRequest) {
+    public static DiaryDTO toDiaryDTO(final DiaryWriteRequest diaryWriteRequest) {
         return new DiaryDTO(
                 null,
                 diaryWriteRequest.title(),
                 diaryWriteRequest.content(),
                 Category.getCategoryByName(diaryWriteRequest.category()),
-                UserDTO.toUserDTO(id),
+                null,
                 diaryWriteRequest.isShare(),
                 null
         );
