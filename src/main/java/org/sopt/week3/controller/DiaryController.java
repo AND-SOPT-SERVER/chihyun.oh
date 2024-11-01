@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/diary")
 @Validated
 public class DiaryController {
+    private static final String USER_ID_HEADER_NAME = "User-Id";
 
     private final DiaryService diaryService;
 
@@ -49,7 +50,7 @@ public class DiaryController {
     ResponseEntity<MyDiariesResponse> getMyDiaries(
             @RequestParam(required = false, defaultValue = "createdAt", value = "orderby") final String criteria,
             @RequestParam(required = false, defaultValue = "0") @PositiveOrZero int page,
-            @RequestHeader(name = "User-Id") @NotNull @Positive long userId
+            @RequestHeader(name = USER_ID_HEADER_NAME) @NotNull @Positive long userId
     ) {
         List<DiaryDTO> diaryDTOs = diaryService.getMyDiaries(userId, criteria, page);
         MyDiariesResponse myDiariesResponse = MyDiariesResponse.toMyDiariesResponse(diaryDTOs);
@@ -60,7 +61,7 @@ public class DiaryController {
     @PostMapping
     ResponseEntity<String> writeDiary(
             @RequestBody @Valid DiaryWriteRequest diaryWriteRequest,
-            @RequestHeader(name = "User-Id") @NotNull @Positive long userId
+            @RequestHeader(name = USER_ID_HEADER_NAME) @NotNull @Positive long userId
     ) {
         diaryService.writeDiary(userId, DiaryDTO.toDiaryDTO(diaryWriteRequest));
 
@@ -71,7 +72,7 @@ public class DiaryController {
     ResponseEntity<String> rewriteDiary(
             @PathVariable(value = "id") @Positive long diaryId,
             @RequestBody @Valid DiaryWriteRequest diaryWriteRequest,
-            @RequestHeader(name = "User-Id") @NotNull @Positive long userId
+            @RequestHeader(name = USER_ID_HEADER_NAME) @NotNull @Positive long userId
     ) {
         diaryService.rewriteDiary(diaryId, userId, DiaryDTO.toDiaryDTO(diaryWriteRequest));
 
@@ -81,7 +82,7 @@ public class DiaryController {
     @DeleteMapping("/{id}")
     ResponseEntity<String> deleteDiary(
             @PathVariable(value = "id") @Positive long diaryId,
-            @RequestHeader(name = "User-Id") @NotNull @Positive long userId
+            @RequestHeader(name = USER_ID_HEADER_NAME) @NotNull @Positive long userId
     ) {
         diaryService.deleteDiary(diaryId, userId);
 
