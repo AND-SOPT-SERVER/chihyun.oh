@@ -26,6 +26,15 @@ public class DiaryService {
         this.userRepository = userRepository;
     }
 
+    @Transactional
+    protected void validateIsUserIdCorrect(final long userId, final long givenId) {
+        if (userId != givenId) {
+            // 에러 추가
+            // 권한이 없습니다.
+            throw new IllegalArgumentException();
+        }
+    }
+
     @Transactional(readOnly = true)
     protected Sort getSortByCriteria(final DiarySortColumn criteria) {
         return Sort.by(
@@ -55,11 +64,11 @@ public class DiaryService {
     }
 
     @Transactional(readOnly = true)
-    public List<DiaryDTO> getMyDiaries(final long id, final String criteria, final int page) {
+    public List<DiaryDTO> getMyDiaries(final long userId, final String criteria, final int page) {
         Sort sort = getSortByCriteria(DiarySortColumn.getSortColumnByCriteria(criteria));
         Pageable pageable = getPageableByPageAndSort(page, sort);
 
-        List<DiaryEntity> diaryEntities = diaryRepository.findAllTop10ByUserId(id, pageable);
+        List<DiaryEntity> diaryEntities = diaryRepository.findAllTop10ByUserId(userId, pageable);
 
         return diaryEntities.stream()
                 .map(DiaryDTO::toDiaryDTO)
@@ -67,8 +76,8 @@ public class DiaryService {
     }
 
     @Transactional
-    public void writeDiary(final long id, final DiaryDTO diaryDTO) {
-        UserEntity userEntity = userRepository.findById(id).orElseThrow(
+    public void writeDiary(final long userId, final DiaryDTO diaryDTO) {
+        UserEntity userEntity = userRepository.findById(userId).orElseThrow(
                 // 에러 추가
                 // USER NOT FOUND
                 () -> new IllegalArgumentException()
@@ -77,5 +86,21 @@ public class DiaryService {
         diaryRepository.save(
                 DiaryEntity.toDiaryEntity(diaryDTO, userEntity)
         );
+    }
+
+    @Transactional
+    public void rewriteDiary(final long diaryId, final long userId, final DiaryDTO diaryDTO) {
+        DiaryEntity diaryEntity = diaryRepository.findById(diaryId).orElseThrow(
+                // 에러 추가
+                // DIARY NOT FOUND
+                () -> new IllegalArgumentException()
+        );
+
+        validateIsUserIdCorrect(diaryEntity.getUser().getId(), userId);
+
+        diaryEntity.setTitle(diaryDTO.title());
+        diaryEntity.setContent(diaryDTO.content());
+        diaryEntity.setCategory(diaryDTO.category());
+        diaryEntity.setShare(diaryDTO.isShare());
     }
 }
