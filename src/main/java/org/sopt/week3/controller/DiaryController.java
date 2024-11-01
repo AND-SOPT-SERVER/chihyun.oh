@@ -1,5 +1,9 @@
 package org.sopt.week3.controller;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 import java.util.List;
 import org.sopt.week3.dto.diary.DiaryDTO;
 import org.sopt.week3.dto.diary.request.DiaryWriteRequest;
@@ -8,6 +12,7 @@ import org.sopt.week3.dto.diary.response.MyDiariesResponse;
 import org.sopt.week3.service.DiaryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -21,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/diary")
+@Validated
 public class DiaryController {
 
     private final DiaryService diaryService;
@@ -32,7 +38,7 @@ public class DiaryController {
     @GetMapping
     ResponseEntity<DiariesResponse> getDiaries(
             @RequestParam(required = false, defaultValue = "createdAt", value = "orderby") final String criteria,
-            @RequestParam(required = false, defaultValue = "0") int page) {
+            @RequestParam(required = false, defaultValue = "0") @PositiveOrZero int page) {
         List<DiaryDTO> diaryDTOs = diaryService.getDiaries(criteria, page);
         DiariesResponse diariesResponse = DiariesResponse.toDiaryListResponse(diaryDTOs);
 
@@ -42,8 +48,8 @@ public class DiaryController {
     @GetMapping("/me")
     ResponseEntity<MyDiariesResponse> getMyDiaries(
             @RequestParam(required = false, defaultValue = "createdAt", value = "orderby") final String criteria,
-            @RequestParam(required = false, defaultValue = "0") int page,
-            @RequestHeader(name = "User-Id") long userId
+            @RequestParam(required = false, defaultValue = "0") @PositiveOrZero int page,
+            @RequestHeader(name = "User-Id") @NotNull @Positive long userId
     ) {
         List<DiaryDTO> diaryDTOs = diaryService.getMyDiaries(userId, criteria, page);
         MyDiariesResponse myDiariesResponse = MyDiariesResponse.toMyDiariesResponse(diaryDTOs);
@@ -53,8 +59,8 @@ public class DiaryController {
 
     @PostMapping
     ResponseEntity<String> writeDiary(
-            @RequestBody DiaryWriteRequest diaryWriteRequest,
-            @RequestHeader(name = "User-Id") long userId
+            @RequestBody @Valid DiaryWriteRequest diaryWriteRequest,
+            @RequestHeader(name = "User-Id") @NotNull @Positive long userId
     ) {
         diaryService.writeDiary(userId, DiaryDTO.toDiaryDTO(diaryWriteRequest));
 
@@ -63,9 +69,9 @@ public class DiaryController {
 
     @PatchMapping("/{id}")
     ResponseEntity<String> rewriteDiary(
-            @PathVariable(value = "id") long diaryId,
-            @RequestBody DiaryWriteRequest diaryWriteRequest,
-            @RequestHeader(name = "User-Id") long userId
+            @PathVariable(value = "id") @Positive long diaryId,
+            @RequestBody @Valid DiaryWriteRequest diaryWriteRequest,
+            @RequestHeader(name = "User-Id") @NotNull @Positive long userId
     ) {
         diaryService.rewriteDiary(diaryId, userId, DiaryDTO.toDiaryDTO(diaryWriteRequest));
 
@@ -74,8 +80,8 @@ public class DiaryController {
 
     @DeleteMapping("/{id}")
     ResponseEntity<String> deleteDiary(
-            @PathVariable(value = "id") long diaryId,
-            @RequestHeader(name = "User-Id") long userId
+            @PathVariable(value = "id") @Positive long diaryId,
+            @RequestHeader(name = "User-Id") @NotNull @Positive long userId
     ) {
         diaryService.deleteDiary(diaryId, userId);
 

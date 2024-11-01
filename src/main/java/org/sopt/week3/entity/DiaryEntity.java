@@ -91,13 +91,13 @@ public class DiaryEntity {
     }
 
     private void validateTitleLength(final String title) {
-        if (title.isBlank() || title.length() > MAX_TITLE_LENGTH) {
+        if (title.length() > MAX_TITLE_LENGTH) {
             throw new DiaryException(DiaryErrorCode.OVER_LENGTH_LIMIT);
         }
     }
 
     private void validateContentLength(final String content) {
-        if (content.isBlank() || content.length() > MAX_CONTENT_LENGTH) {
+        if (content.length() > MAX_CONTENT_LENGTH) {
             throw new DiaryException(DiaryErrorCode.OVER_LENGTH_LIMIT);
         }
     }
