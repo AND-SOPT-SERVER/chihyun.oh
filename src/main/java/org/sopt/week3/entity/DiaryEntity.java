@@ -14,6 +14,8 @@ import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import org.sopt.week3.constant.Category;
 import org.sopt.week3.dto.diary.DiaryDTO;
+import org.sopt.week3.exception.diary.DiaryErrorCode;
+import org.sopt.week3.exception.diary.DiaryException;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -90,17 +92,13 @@ public class DiaryEntity {
 
     private void validateTitleLength(final String title) {
         if (title.isBlank() || title.length() > MAX_TITLE_LENGTH) {
-            // 임시 에러
-            // 제목은 1자 ~ 10자
-            throw new IllegalArgumentException();
+            throw new DiaryException(DiaryErrorCode.OVER_LENGTH_LIMIT);
         }
     }
 
     private void validateContentLength(final String content) {
         if (content.isBlank() || content.length() > MAX_CONTENT_LENGTH) {
-            // 임시 에러
-            // 내용은 1자 ~ 30자
-            throw new IllegalArgumentException();
+            throw new DiaryException(DiaryErrorCode.OVER_LENGTH_LIMIT);
         }
     }
 
