@@ -9,6 +9,8 @@ import org.sopt.week3.service.DiaryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -40,10 +42,10 @@ public class DiaryController {
     ResponseEntity<MyDiariesResponse> getMyDiaries(
             @RequestParam(required = false, defaultValue = "createdAt", value = "orderby") final String criteria,
             @RequestParam(required = false, defaultValue = "0") int page,
-            @RequestHeader(name = "User-Id") long id
+            @RequestHeader(name = "User-Id") long userId
     ) {
         // 헤더로 유저 아이디 검사 추가
-        List<DiaryDTO> diaryDTOs = diaryService.getMyDiaries(id, criteria, page);
+        List<DiaryDTO> diaryDTOs = diaryService.getMyDiaries(userId, criteria, page);
         MyDiariesResponse myDiariesResponse = MyDiariesResponse.toMyDiariesResponse(diaryDTOs);
 
         return ResponseEntity.ok(myDiariesResponse);
@@ -52,10 +54,21 @@ public class DiaryController {
     @PostMapping
     ResponseEntity<String> writeDiary(
             @RequestBody DiaryWriteRequest diaryWriteRequest,
-            @RequestHeader(name = "User-Id") long id
+            @RequestHeader(name = "User-Id") long userId
     ) {
-        diaryService.writeDiary(id, DiaryDTO.toDiaryDTO(diaryWriteRequest));
+        diaryService.writeDiary(userId, DiaryDTO.toDiaryDTO(diaryWriteRequest));
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @PatchMapping("/{id}")
+    ResponseEntity<String> rewriteDiary(
+            @PathVariable(value = "id") long diaryId,
+            @RequestBody DiaryWriteRequest diaryWriteRequest,
+            @RequestHeader(name = "User-Id") long userId
+    ) {
+        diaryService.rewriteDiary(diaryId, userId, DiaryDTO.toDiaryDTO(diaryWriteRequest));
+
+        return ResponseEntity.ok().build();
     }
 }

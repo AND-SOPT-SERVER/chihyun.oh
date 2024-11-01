@@ -105,6 +105,24 @@ public class DiaryEntity {
         }
     }
 
+    public void setTitle(String title) {
+        validateTitleLength(title);
+        this.title = title;
+    }
+
+    public void setContent(String content) {
+        validateContentLength(content);
+        this.content = content;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public void setShare(Boolean share) {
+        isShare = share;
+    }
+
     public Long getId() {
         return id;
     }
