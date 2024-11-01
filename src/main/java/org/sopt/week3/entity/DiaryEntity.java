@@ -1,5 +1,8 @@
 package org.sopt.week3.entity;
 
+import static org.sopt.week3.constant.DiaryConstant.MAX_CONTENT_LENGTH;
+import static org.sopt.week3.constant.DiaryConstant.MAX_TITLE_LENGTH;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
@@ -16,8 +19,6 @@ import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import org.sopt.week3.constant.Category;
 import org.sopt.week3.dto.diary.DiaryDTO;
-import org.sopt.week3.exception.diary.DiaryErrorCode;
-import org.sopt.week3.exception.diary.DiaryException;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -29,10 +30,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "diary")
 public class DiaryEntity {
-
-    private static final int MAX_TITLE_LENGTH = 10;
-    private static final int MAX_CONTENT_LENGTH = 30;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -73,9 +70,6 @@ public class DiaryEntity {
 
     private DiaryEntity(final String title, final String content, final Category category, final UserEntity user,
                         final boolean isShare) {
-        validateTitleLength(title);
-        validateContentLength(content);
-
         this.title = title;
         this.content = content;
         this.category = category;
@@ -93,25 +87,11 @@ public class DiaryEntity {
         );
     }
 
-    private void validateTitleLength(final String title) {
-        if (title.length() > MAX_TITLE_LENGTH) {
-            throw new DiaryException(DiaryErrorCode.OVER_LENGTH_LIMIT);
-        }
-    }
-
-    private void validateContentLength(final String content) {
-        if (content.length() > MAX_CONTENT_LENGTH) {
-            throw new DiaryException(DiaryErrorCode.OVER_LENGTH_LIMIT);
-        }
-    }
-
     public void setTitle(String title) {
-        validateTitleLength(title);
         this.title = title;
     }
 
     public void setContent(String content) {
-        validateContentLength(content);
         this.content = content;
     }
 
