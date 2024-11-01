@@ -5,6 +5,10 @@ import org.sopt.week3.constant.DiarySortColumn;
 import org.sopt.week3.dto.diary.DiaryDTO;
 import org.sopt.week3.entity.DiaryEntity;
 import org.sopt.week3.entity.UserEntity;
+import org.sopt.week3.exception.diary.DiaryErrorCode;
+import org.sopt.week3.exception.diary.DiaryException;
+import org.sopt.week3.exception.user.UserErrorCode;
+import org.sopt.week3.exception.user.UserException;
 import org.sopt.week3.repository.DiaryRepository;
 import org.sopt.week3.repository.UserRepository;
 import org.springframework.data.domain.PageRequest;
@@ -29,9 +33,7 @@ public class DiaryService {
     @Transactional
     protected void validateIsUserIdCorrect(final long userId, final long givenId) {
         if (userId != givenId) {
-            // 에러 추가
-            // 권한이 없습니다.
-            throw new IllegalArgumentException();
+            throw new DiaryException(DiaryErrorCode.NO_AUTHORIZATION_WITH_LOGIN);
         }
     }
 
@@ -78,9 +80,7 @@ public class DiaryService {
     @Transactional
     public void writeDiary(final long userId, final DiaryDTO diaryDTO) {
         UserEntity userEntity = userRepository.findById(userId).orElseThrow(
-                // 에러 추가
-                // USER NOT FOUND
-                () -> new IllegalArgumentException()
+                () -> new UserException(UserErrorCode.NOT_FOUND)
         );
 
         diaryRepository.save(
@@ -91,9 +91,7 @@ public class DiaryService {
     @Transactional
     public void rewriteDiary(final long diaryId, final long userId, final DiaryDTO diaryDTO) {
         DiaryEntity diaryEntity = diaryRepository.findById(diaryId).orElseThrow(
-                // 에러 추가
-                // DIARY NOT FOUND
-                () -> new IllegalArgumentException()
+                () -> new DiaryException(DiaryErrorCode.NOT_FOUND)
         );
 
         validateIsUserIdCorrect(diaryEntity.getUser().getId(), userId);
@@ -107,9 +105,7 @@ public class DiaryService {
     @Transactional
     public void deleteDiary(final long diaryId, final long userId) {
         DiaryEntity diaryEntity = diaryRepository.findById(diaryId).orElseThrow(
-                // 에러 추가
-                // DIARY NOT FOUND
-                () -> new IllegalArgumentException()
+                () -> new DiaryException(DiaryErrorCode.NOT_FOUND)
         );
 
         validateIsUserIdCorrect(diaryEntity.getUser().getId(), userId);
