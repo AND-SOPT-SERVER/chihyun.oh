@@ -1,5 +1,6 @@
 package org.sopt.week3.controller;
 
+import jakarta.validation.Valid;
 import org.sopt.week3.dto.user.UserDTO;
 import org.sopt.week3.dto.user.request.UserLoginRequest;
 import org.sopt.week3.dto.user.request.UserSignUpRequest;
@@ -23,7 +24,7 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    ResponseEntity<String> signup(@RequestBody UserSignUpRequest userSignUpRequest) {
+    ResponseEntity<String> signup(@RequestBody @Valid UserSignUpRequest userSignUpRequest) {
         userService.signUp(
                 UserDTO.toUserDTO(userSignUpRequest)
         );
@@ -32,7 +33,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    ResponseEntity<UserLoginResponse> login(@RequestBody UserLoginRequest userLoginRequest) {
+    ResponseEntity<UserLoginResponse> login(@RequestBody @Valid UserLoginRequest userLoginRequest) {
         UserDTO userDTO = userService.login(UserDTO.toUserDTO(userLoginRequest));
         UserLoginResponse userLoginResponse = UserLoginResponse.toUserLoginResponse(userDTO);
 
