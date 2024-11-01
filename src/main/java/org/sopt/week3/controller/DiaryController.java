@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 import java.util.List;
 import org.sopt.week3.dto.diary.DiaryDTO;
+import org.sopt.week3.dto.diary.request.DiaryRewriteRequest;
 import org.sopt.week3.dto.diary.request.DiaryWriteRequest;
 import org.sopt.week3.dto.diary.response.DiariesResponse;
 import org.sopt.week3.dto.diary.response.MyDiariesResponse;
@@ -71,10 +72,10 @@ public class DiaryController {
     @PatchMapping("/{id}")
     ResponseEntity<String> rewriteDiary(
             @PathVariable(value = "id") @Positive long diaryId,
-            @RequestBody @Valid DiaryWriteRequest diaryWriteRequest,
+            @RequestBody @Valid DiaryRewriteRequest diaryRewriteRequest,
             @RequestHeader(name = USER_ID_HEADER_NAME) @NotNull @Positive long userId
     ) {
-        diaryService.rewriteDiary(diaryId, userId, DiaryDTO.toDiaryDTO(diaryWriteRequest));
+        diaryService.rewriteDiary(diaryId, userId, DiaryDTO.toDiaryDTO(diaryRewriteRequest));
 
         return ResponseEntity.ok().build();
     }
