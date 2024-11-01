@@ -45,7 +45,6 @@ public class DiaryController {
             @RequestParam(required = false, defaultValue = "0") int page,
             @RequestHeader(name = "User-Id") long userId
     ) {
-        // 헤더로 유저 아이디 검사 추가
         List<DiaryDTO> diaryDTOs = diaryService.getMyDiaries(userId, criteria, page);
         MyDiariesResponse myDiariesResponse = MyDiariesResponse.toMyDiariesResponse(diaryDTOs);
 

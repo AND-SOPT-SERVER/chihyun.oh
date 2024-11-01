@@ -1,6 +1,8 @@
 package org.sopt.week3.constant;
 
 import java.util.Arrays;
+import org.sopt.week3.exception.diary.DiaryErrorCode;
+import org.sopt.week3.exception.diary.DiaryException;
 
 public enum Category {
     FOOD("음식"),
@@ -19,8 +21,7 @@ public enum Category {
                 .filter(category -> category.name.equals(name))
                 .findFirst()
                 .orElseThrow(
-                        // 에러 추가
-                        () -> new IllegalArgumentException()
+                        () -> new DiaryException(DiaryErrorCode.CATEGORY_MISMATCH)
                 );
     }
 
