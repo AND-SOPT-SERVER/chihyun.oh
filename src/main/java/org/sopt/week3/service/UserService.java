@@ -2,6 +2,8 @@ package org.sopt.week3.service;
 
 import org.sopt.week3.dto.user.UserDTO;
 import org.sopt.week3.entity.UserEntity;
+import org.sopt.week3.exception.user.UserErrorCode;
+import org.sopt.week3.exception.user.UserException;
 import org.sopt.week3.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,8 +19,7 @@ public class UserService {
     @Transactional(readOnly = true)
     protected void validateIsPasswordCorrect(final UserEntity userEntity, final String password) {
         if (!userEntity.isPasswordCorrect(password)) {
-            // 에러 추가
-            throw new IllegalArgumentException();
+            throw new UserException(UserErrorCode.PASSWORD_MISMATCH);
         }
     }
 
@@ -32,9 +33,7 @@ public class UserService {
     @Transactional(readOnly = true)
     public UserDTO login(final UserDTO userDTO) {
         UserEntity userEntity = userRepository.findOneByNickname(userDTO.nickname()).orElseThrow(
-                // 에러 추가
-                // USER NOT FOUND
-                () -> new IllegalArgumentException()
+                () -> new UserException(UserErrorCode.NOT_FOUND)
         );
 
         validateIsPasswordCorrect(userEntity, userDTO.password());
