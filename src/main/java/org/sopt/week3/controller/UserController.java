@@ -7,8 +7,8 @@ import org.sopt.week3.dto.user.response.UserLoginResponse;
 import org.sopt.week3.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,7 +23,7 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    ResponseEntity<String> signup(@ModelAttribute UserSignUpRequest userSignUpRequest) {
+    ResponseEntity<String> signup(@RequestBody UserSignUpRequest userSignUpRequest) {
         userService.signUp(
                 UserDTO.toUserDTO(userSignUpRequest)
         );
@@ -32,7 +32,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    ResponseEntity<UserLoginResponse> login(@ModelAttribute UserLoginRequest userLoginRequest) {
+    ResponseEntity<UserLoginResponse> login(@RequestBody UserLoginRequest userLoginRequest) {
         UserDTO userDTO = userService.login(UserDTO.toUserDTO(userLoginRequest));
         UserLoginResponse userLoginResponse = UserLoginResponse.toUserLoginResponse(userDTO);
 

@@ -15,7 +15,7 @@ import org.sopt.week3.dto.user.UserDTO;
  */
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -4,7 +4,9 @@ import java.util.List;
 import org.sopt.week3.constant.DiarySortColumn;
 import org.sopt.week3.dto.diary.DiaryDTO;
 import org.sopt.week3.entity.DiaryEntity;
+import org.sopt.week3.entity.UserEntity;
 import org.sopt.week3.repository.DiaryRepository;
+import org.sopt.week3.repository.UserRepository;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -17,9 +19,11 @@ public class DiaryService {
     private static final int PAGE_SIZE = 10;
 
     private final DiaryRepository diaryRepository;
+    private final UserRepository userRepository;
 
-    public DiaryService(DiaryRepository diaryRepository) {
+    public DiaryService(DiaryRepository diaryRepository, UserRepository userRepository) {
         this.diaryRepository = diaryRepository;
+        this.userRepository = userRepository;
     }
 
     @Transactional(readOnly = true)
@@ -63,9 +67,15 @@ public class DiaryService {
     }
 
     @Transactional
-    public void writeDiary(final DiaryDTO diaryDTO) {
+    public void writeDiary(final long id, final DiaryDTO diaryDTO) {
+        UserEntity userEntity = userRepository.findById(id).orElseThrow(
+                // 에러 추가
+                // USER NOT FOUND
+                () -> new IllegalArgumentException()
+        );
+
         diaryRepository.save(
-                DiaryEntity.toDiaryEntity(diaryDTO)
+                DiaryEntity.toDiaryEntity(diaryDTO, userEntity)
         );
     }
 }
