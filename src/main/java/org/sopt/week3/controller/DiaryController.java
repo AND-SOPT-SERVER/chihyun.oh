@@ -8,6 +8,7 @@ import org.sopt.week3.dto.diary.response.MyDiariesResponse;
 import org.sopt.week3.service.DiaryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -68,6 +69,16 @@ public class DiaryController {
             @RequestHeader(name = "User-Id") long userId
     ) {
         diaryService.rewriteDiary(diaryId, userId, DiaryDTO.toDiaryDTO(diaryWriteRequest));
+
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/{id}")
+    ResponseEntity<String> deleteDiary(
+            @PathVariable(value = "id") long diaryId,
+            @RequestHeader(name = "User-Id") long userId
+    ) {
+        diaryService.deleteDiary(diaryId, userId);
 
         return ResponseEntity.ok().build();
     }

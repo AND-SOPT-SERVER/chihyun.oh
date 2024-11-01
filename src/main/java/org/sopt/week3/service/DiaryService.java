@@ -103,4 +103,17 @@ public class DiaryService {
         diaryEntity.setCategory(diaryDTO.category());
         diaryEntity.setShare(diaryDTO.isShare());
     }
+
+    @Transactional
+    public void deleteDiary(final long diaryId, final long userId) {
+        DiaryEntity diaryEntity = diaryRepository.findById(diaryId).orElseThrow(
+                // 에러 추가
+                // DIARY NOT FOUND
+                () -> new IllegalArgumentException()
+        );
+
+        validateIsUserIdCorrect(diaryEntity.getUser().getId(), userId);
+
+        diaryRepository.deleteById(diaryId);
+    }
 }
